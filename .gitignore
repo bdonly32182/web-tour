@@ -6,6 +6,7 @@
 /public/dist
 /public/plugins
 /public/js
+/public/assets
 /.pnp
 .pnp.js
 
