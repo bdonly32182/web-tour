@@ -9,7 +9,7 @@ export default ({input,type,label,required,meta:{error,touched}})=>{
                 {
                     touched&& error &&
                     (
-                        <div className="text-danger  mt-2">{error}</div>
+                        <div className="text-danger  mt-2" role="alert">{error}</div>
                     )
 
                 }

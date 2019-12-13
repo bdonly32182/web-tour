@@ -15,7 +15,7 @@ export default class HeaderHome extends Component {
                         <span className="icon-bar" />
                         <span className="icon-bar" />
                         </button>
-                        <a className="navbar-brand" href="/" title="HOME"><i className="ion-paper-airplane" /> euro <span>travel</span></a>
+                        <a className="navbar-brand" href="/" title="HOME"><i className="ion-paper-airplane" /> Best $ Ploy <span>travel</span></a>
                     </div> {/* /.navbar-header */}
                     {/* Collect the nav links, forms, and other content for toggling */}
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

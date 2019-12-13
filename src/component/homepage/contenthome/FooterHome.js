@@ -5,7 +5,7 @@ export default class FooterHome extends Component {
         return (
             <div>
                 <div className="subscribe section-wrapper">
-    <a className="brand-logo" href="/" title="HOME"><i className="ion-paper-airplane" /> Euro <span>Travel</span></a>
+    <a className="brand-logo" href="/" title="HOME"><i className="ion-paper-airplane" /> Best $ Ploy <span>Travel</span></a>
     <p className="subscribe-now">
       Subscribe to our Newsletter
     </p>
@@ -33,7 +33,7 @@ export default class FooterHome extends Component {
       <div className="row">
         <div className="col-xs-4">
           <div className="text-left">
-            © Copyright Euro Travels
+            © Copyright Best $ Ploy Travels
           </div>
         </div>
         <div className="col-xs-4">
