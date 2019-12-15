@@ -2,11 +2,7 @@
 
 # dependencies
 /node_modules
-/public/bower_components
-/public/dist
-/public/plugins
-/public/js
-/public/assets
+
 /.pnp
 .pnp.js
 
