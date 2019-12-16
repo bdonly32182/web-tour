@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {reduxForm,Field} from 'redux-form'
+import {Link} from 'react-router-dom'
 import {Registerfield} from './IntregateForm'
 import RegisterFormField from '../../common/RegisterFormField'
  class RegisterForm extends Component {
@@ -12,13 +13,17 @@ import RegisterFormField from '../../common/RegisterFormField'
         })
      }
     render() {
+        const {onSubmitRegister} = this.props
         return (
             <div>
-                <form>
+                <form onSubmit= {this.props.handleSubmit(onSubmitRegister)}>
                     {this.renderRegistForm(Registerfield)}
                     <br/>
                     <p className="text-primary"><input type="checkbox" ></input> I'm Agree</p>
+                 
                     <button className="btn btn-block btn-info">Register</button>
+                    <br/>
+                    <p className="text-right"><Link to="/login">Have a user Go to Login</Link></p>
                 </form>
             </div>
         )

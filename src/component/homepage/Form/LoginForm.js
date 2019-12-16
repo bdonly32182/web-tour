@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Field,reduxForm} from 'redux-form'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 import LoginFormField from '../../common/LoginFormField'
 import {Loginfield} from './IntregateForm'
  class LoginForm extends Component {
@@ -20,9 +21,14 @@ import {Loginfield} from './IntregateForm'
        })
     }
     render() {
+        const {onSubmitLogin,users} = this.props
+        console.log(users);
+        
         return (
             <div>
-                <form>
+                <form onSubmit={this.props.handleSubmit(onSubmitLogin)}>
+                    
+                
                      {this.renderForm(Loginfield)}
                             <p className="text-left"><input type="checkbox"></input> remember me</p>
                             <p className="text-right"><Link to="/register">Forgot Your Password</Link></p>
@@ -37,6 +43,7 @@ import {Loginfield} from './IntregateForm'
 }
 function validate(value){
     //value is params's func validate for onChange value
+    
     const error ={}
     Loginfield.forEach(({name,required})=>{
         if(!value[name] && required){

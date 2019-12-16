@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import Header from '../Header'
-import Menubar from '../Menubar'
-import Footer from '../Footer'
+
 import FooterHome from './contenthome/FooterHome'
 
 export default class Home extends Component {

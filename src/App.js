@@ -7,23 +7,37 @@ import JoinUs from './component/homepage/JoinUs'
 import Login from './component/homepage/Login'
 import Register from './component/homepage/Register'
  class App extends Component {
-
+constructor(props){
+  super(props)
+  this.state={check:true}
+}
   renderRoute(){
     return(
-      <Switch>
+      <div>
+      
+         <Switch>
+        
         <Route exact path='/' component={Home} />
         <Route exact path="/about" component={About} />
         <Route exact path ="/contact" component={Contact} />
         <Route exact path="/join" component={JoinUs} />
         <Route exact path= "/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        
       </Switch>
+        
+      </div>
+     
     )
   }
   render() {
     return (
+        <div>
       
-        <BrowserRouter>{this.renderRoute()}</BrowserRouter>
+          <BrowserRouter>{this.renderRoute()}</BrowserRouter>
+          
+        </div>
+        
       
     )
   }

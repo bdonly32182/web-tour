@@ -1,6 +1,7 @@
 export const Loginfield =[
-    {label:"Email or Username",type:"email",name:"username",required:true},
+    {label:"Email or Username",type:"email",name:"email",required:true},
     {label:"Password",type:"password",name:"password",required:true},
+
 ]
 
 export const Registerfield =[
@@ -13,5 +14,4 @@ export const Registerfield =[
     {label:"Confirm Password" , type:"password",name:'confirmpass',required:true},
     {label:"Address your company" , type:"text",name:'address',required:true},
     {label:"Contact Number" , type:"number",name:'contact',required:true},
-    
 ]
