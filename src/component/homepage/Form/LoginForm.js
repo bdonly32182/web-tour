@@ -22,7 +22,6 @@ import {Loginfield} from './IntregateForm'
     }
     render() {
         const {onSubmitLogin,users} = this.props
-        console.log(users);
         
         return (
             <div>

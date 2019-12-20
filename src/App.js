@@ -6,6 +6,7 @@ import Contact from './component/homepage/Contact'
 import JoinUs from './component/homepage/JoinUs'
 import Login from './component/homepage/Login'
 import Register from './component/homepage/Register'
+import IntregateLTE from './component/adminLTE/IntregateLTE'
  class App extends Component {
 constructor(props){
   super(props)
@@ -23,6 +24,7 @@ constructor(props){
         <Route exact path="/join" component={JoinUs} />
         <Route exact path= "/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/manage" component={IntregateLTE} />
         
       </Switch>
         

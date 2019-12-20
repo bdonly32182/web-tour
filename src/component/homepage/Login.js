@@ -5,6 +5,7 @@ import HeaderHome from './contenthome/HeaderHome'
 import FooterHome from './contenthome/FooterHome'
 import LoginForm from './Form/LoginForm'
 import {userLogin} from '../../action'
+import IntregateLTE from '../adminLTE/IntregateLTE'
 class Login extends Component {
 
     constructor(props){
@@ -13,7 +14,7 @@ class Login extends Component {
     
     render() {
         const {formValue,userLogin,users} = this.props
-        console.log(users);
+        console.log(users.user);
         
         return (
             <div>
@@ -48,10 +49,10 @@ class Login extends Component {
                                 </p>
                                 {users.isSuccess &&
                                     this.props.history.push('/manage')
+                                   
                                 }
                            
                             </div>
-                           
                         </div>
                         <br/>
                          <div className="row">
