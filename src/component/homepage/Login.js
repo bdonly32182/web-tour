@@ -14,18 +14,12 @@ class Login extends Component {
     
     render() {
         const {formValue,userLogin,users} = this.props
-        console.log(users.user);
         
         return (
             <div>
-               
-                
                     <div className="container-fluid">
                         <div className="row">
-                          
                                 <HeaderHome /> 
-                            
-                           
                         </div>
                         <hr></hr>
                         <br />

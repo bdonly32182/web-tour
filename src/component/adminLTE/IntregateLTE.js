@@ -5,32 +5,48 @@ import {userLogin} from '../../action'
 import Header from './Header'
 import Menubar from './Menubar'
 import Footer from './Footer'
-import Content from './content'
+import Content from './Content'
  class IntregateLTE extends Component {
 
-   
+   showadminLTE(users){
+       if(users){
+          if(users.role == "admin"){
+              return (
+                        <div>
+                            <Header />
+                            <Menubar />
+                            <Footer role="admin"/>
+                        </div>
+              )
+
+          }else if(users.role == "partner"){
+            return (
+                <div>
+                <Header />
+                <Menubar />
+                <Footer role="partner"/>
+            </div>
+            )
+          }
+          
+       }else{
+           return (
+               <div>
+                   <Header />
+                   <Menubar user="test admin" pathPic ="http://localhost/Tour-image/cap.PNG"></Menubar>
+                   <Content />
+                   <Footer role="test"/>
+               </div>
+           )
+       }
+   }
+
     render() {
-        console.log(this.props.users);
         
         return (
             
             <div>
-                {this.props.users.role =="admin" &&
-                <div>
-                    
-                     <Header />
-                    <Menubar />
-                    <Content />
-                    <Footer />
-                </div>
-                }
-                {this.props.users.role == "partner"&&
-                <div>
-                    <Header />
-                </div>
-
-                }
-              
+              {this.showadminLTE(this.props.users)}
             </div>
         )
     }
