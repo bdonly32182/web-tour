@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {reduxForm,Field} from 'redux-form'
+import {connect} from 'react-redux'
 import {Tourfield} from '../../../homepage/Form/IntregateForm'
 import  TourFromField from '../../../common/TourFromField'
  class TourForm extends Component {
@@ -31,5 +32,12 @@ function validate(value){
     })
     return err
 }
+function mapStateToProps({tours}){
+    if(tours && tours._id){
+        return {initialValues:tours}
+    }else{
+        return {}
+    }
+}
 TourForm = reduxForm({validate,form:"tourForm"})(TourForm)
-export default TourForm;
+export default connect(mapStateToProps)(TourForm);

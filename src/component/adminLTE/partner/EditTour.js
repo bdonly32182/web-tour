@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {CreateTour,tourFetch} from '../../../action'
+import {CreateTour,tourFetch,UpdateTour} from '../../../action'
 import TourForm from './Form/TourForm'
-import { CREATE_TOUR } from '../../../action/Type'
 
  class EditTour extends Component {
      componentDidMount(){
@@ -11,8 +10,7 @@ import { CREATE_TOUR } from '../../../action/Type'
         }
      }
     render() {
-        const {match,formValue,users,CreateTour} = this.props
-        console.log('dit',match);
+        const {match,formValue,users,CreateTour,UpdateTour,tours} = this.props
         
         return (
             <div>
@@ -30,12 +28,24 @@ import { CREATE_TOUR } from '../../../action/Type'
                     </div>
                     <div className="row">
                         <div className="col-md-4"></div>
+                        {match.path.indexOf('add') >0&&
                           <div className="col-md-4">
-                             
+                              
+                             <p>ADD</p>
                              <p className="text-center">
                                   <TourForm onSubmit={()=>CreateTour(formValue,users)}/>
                             </p>
                           </div>
+                        }
+                         {match.path.indexOf('edit') >0&&
+                          <div className="col-md-4">
+                              
+                             <p>Edit</p>
+                             <p className="text-center">
+                                  <TourForm onSubmit={()=>UpdateTour(tours._id,formValue)}/>
+                            </p>
+                          </div>
+                        }
                     </div>
                     
                 </div>
@@ -46,7 +56,7 @@ import { CREATE_TOUR } from '../../../action/Type'
 }
 function mapStateToprops(state){
     console.log('edit state',state.users);
-    return {formValue:state.form.tourForm?state.form.tourForm.values:null,users:state.users}
+    return {formValue:state.form.tourForm?state.form.tourForm.values:null,users:state.users,tours:state.tours}
     
 }
-export default connect(mapStateToprops,{CreateTour,tourFetch})(EditTour)
+export default connect(mapStateToprops,{CreateTour,tourFetch,UpdateTour})(EditTour)
