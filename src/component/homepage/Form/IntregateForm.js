@@ -15,3 +15,13 @@ export const Registerfield =[
     {label:"Address your company" , type:"text",name:'address',required:true},
     {label:"Contact Number" , type:"number",name:'contact',required:true},
 ]
+
+export const Tourfield =[
+    {label:"Tour Name" , type:"text",name:'tourname',required:true},
+    {label:"Place" , type:"text",name:'place',required:true},
+    {label:"Description Tour" , type:"text",name:'description',required:true},
+    {label:"Tour Name" , type:"text",name:'duration',required:true},
+    {label:"Tour Name" , type:"text",name:'highlight',required:true},
+    {label:"Hotel" , type:"text",name:'Hotel',required:true},
+    {label:"PathPictur" , type:"file",name:'PathPictur',required:false}
+]

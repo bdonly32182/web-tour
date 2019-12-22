@@ -26,6 +26,7 @@ import ItemTour from './ItemTour'
         this.props.history.push('/manage/tour/edit/'+tour._id)
      }
     render() {
+        
         return (
             <div className="row">
                 {this.showListTour()}
@@ -33,8 +34,10 @@ import ItemTour from './ItemTour'
         )
     }
 }
-function mapStateToProps({tours}){
+function mapStateToProps({tours,users}){
     console.log('state tour',tours);
-    return {tours:tours}
+    console.log('usres',users);
+    
+    return {tours:tours,users:users.user}
 }
 export default withRouter(connect(mapStateToProps,{toursFetch,DelTour,UpdateTour})(ListTour))

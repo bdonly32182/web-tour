@@ -12,18 +12,26 @@ import Content from './Content'
        if(users){
           if(users.role == "admin"){
               return (
-                        <div>
-                            <Header />
-                            <Menubar />
+                        <div className='container-fluid'>
+                            {/* <Header />
+                            <Menubar /> */}
+                            <div className="row">
+                                <p><Link to="/manage/tour" className="text-danger">tour</Link> </p>
+                            </div>
+                            
                             <Footer role="admin"/>
                         </div>
               )
 
           }else if(users.role == "partner"){
             return (
-                <div>
-                <Header />
-                <Menubar />
+                <div className='container-fluid'>
+                {/* <Header />
+                <Menubar /> */}
+                <div className="row">
+                    <p><Link to="/manage/tour" className="text-danger">tour</Link> </p>
+                </div>
+                
                 <Footer role="partner"/>
             </div>
             )
@@ -46,13 +54,14 @@ import Content from './Content'
         return (
             
             <div>
+                
               {this.showadminLTE(this.props.users)}
             </div>
         )
     }
 }
 function mapStateToProps(state){
-    // console.log('state intregateLET',state);
+    console.log('state intregateLET',state);
     return {users:state.users.user}
 }
-export default withRouter(connect(mapStateToProps,{userLogin})(IntregateLTE))
+export default withRouter(connect(mapStateToProps)(IntregateLTE))
