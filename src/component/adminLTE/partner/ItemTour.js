@@ -4,14 +4,14 @@ import {withRouter} from 'react-router-dom'
     constructor(props){
         super(props)
     }
+   
     render() {
-        const {_id,tourname,Place,description,duration,highlight,Hotel,PathPictur}  = this.props.tours
-        console.log('tour',this.props.tours);
+        const {_id,tourName,place,description,duration,highlight,Hotel,Guide}  = this.props.tours
         
         return (
-            <div>
-                <button className="btn btn-success" onClick={()=>this.props.history.push('/manage/tour/add')}>Create</button>
-                 <table>
+            <div key={_id}>
+               
+                 <table >
                              <thead>
                                     <tr>
                                     <th className="text-danger text-center" scope="col">id</th>
@@ -21,20 +21,20 @@ import {withRouter} from 'react-router-dom'
                                     <th className="text-danger text-center" scope="col">Duration</th>
                                     <th className="text-danger text-center" scope="col">Hightligh</th>
                                     <th className="text-danger text-center" scope="col">Hotel</th>
-                                    <th className="text-danger text-center" scope="col">PathPictur</th>
+                                    <th className="text-danger text-center" scope="col">Guide</th>
 
                                     </tr>
                                 </thead>
-                                <tbody key={_id}>
+                                <tbody >
                                     <tr>
                                         <td>{_id}</td>
-                                        <td>{tourname}</td>
-                                        <td>{Place}</td>
+                                        <td>{tourName}</td>
+                                        <td>{place}</td>
                                         <td>{description}</td>
                                         <td>{duration}</td>
                                         <td>{highlight}</td>
                                         <td>{Hotel}</td>
-                                        <td>{PathPictur}</td>
+                                        <td>{Guide}</td>
                                         <td>
                                             <button className="btn btn-primary" onClick={()=>this.props.onEditTour(this.props.tours)}>edit</button>
                                             <button className="btn btn-danger" onClick={()=>this.props.onDelTour(this.props.tours)}>delete</button>

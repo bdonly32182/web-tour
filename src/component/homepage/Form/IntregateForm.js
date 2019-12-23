@@ -17,11 +17,23 @@ export const Registerfield =[
 ]
 
 export const Tourfield =[
-    {label:"Tour Name" , type:"text",name:'tourname',required:true},
+    {label:"Tour Name" , type:"text",name:'tourName',required:true},
     {label:"Place" , type:"text",name:'place',required:true},
     {label:"Description Tour" , type:"text",name:'description',required:true},
-    {label:"Tour Name" , type:"text",name:'duration',required:true},
-    {label:"Tour Name" , type:"text",name:'highlight',required:true},
+    {label:"Duration" , type:"text",name:'duration',required:true},
+    {label:"Highlight" , type:"text",name:'highlight',required:true},
     {label:"Hotel" , type:"text",name:'Hotel',required:true},
     {label:"PathPictur" , type:"file",name:'PathPictur',required:false}
+]
+
+export const Guidefield =[
+    {label:"License of Guide" , type:"text",name:'License',required:true},
+    {label:"Firstname" , type:"text",name:'Firstname',required:true},
+    {label:"Lastname " , type:"text",name:'Lastname',required:true},
+    {label:"Email " , type:"email",name:'Email',required:true},
+    {label:"Password" , type:"password",name:'Password',required:true},
+    {label:"Address" , type:"text",name:'Address',required:true},
+    {label:"Tel" , type:"text",name:'Tel',required:true},
+
+    
 ]

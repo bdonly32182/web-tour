@@ -7,7 +7,7 @@ import  TourFromField from '../../../common/TourFromField'
      renderTourForm =(field)=>{
             return field.map(({label,type,name,required})=>{
                 return(
-                    <Field label={label} type={type} name={name} required={required} component={TourFromField}/>
+                    <Field key={name} label={label} type={type} name={name} required={required} component={TourFromField}/>
                 )
             })
      }

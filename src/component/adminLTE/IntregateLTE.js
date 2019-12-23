@@ -16,7 +16,7 @@ import Content from './Content'
                             {/* <Header />
                             <Menubar /> */}
                             <div className="row">
-                                <p><Link to="/manage/tour" className="text-danger">tour</Link> </p>
+                                <p><Link to="/manage/approve" className="text-danger">Approve</Link> </p>
                             </div>
                             
                             <Footer role="admin"/>
@@ -26,10 +26,10 @@ import Content from './Content'
           }else if(users.role == "partner"){
             return (
                 <div className='container-fluid'>
-                {/* <Header />
-                <Menubar /> */}
+                <Header />
                 <div className="row">
                     <p><Link to="/manage/tour" className="text-danger">tour</Link> </p>
+                    <p><Link to="/manage/guide" className="text-danger">Guide</Link></p>
                 </div>
                 
                 <Footer role="partner"/>

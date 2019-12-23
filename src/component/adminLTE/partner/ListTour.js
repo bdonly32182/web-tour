@@ -13,9 +13,9 @@ import ItemTour from './ItemTour'
         this.props.toursFetch()
      }
      showListTour=()=>{
-            return this.props.tours && Array.isArray(this.props.tours) &&this.props.tours.map(tours=>(
+            return this.props.tours && Array.isArray(this.props.tours) &&this.props.tours.map((tours,indexTour)=>(
                 <div>
-                    <ItemTour key={tours._id} tours ={tours} onDelTour={this.onDelTour} onEditTour={this.onEditTour}/>
+                    <ItemTour key={tours._id} indexTour={indexTour=+1} tours ={tours} onDelTour={this.onDelTour} onEditTour={this.onEditTour}/>
                 </div>
             ))
      }
@@ -29,14 +29,14 @@ import ItemTour from './ItemTour'
         
         return (
             <div className="row">
+                 <button className="btn btn-success" onClick={()=>this.props.history.push('/manage/tour/add')}>Create</button>
                 {this.showListTour()}
             </div>
         )
     }
 }
 function mapStateToProps({tours,users}){
-    console.log('state tour',tours);
-    console.log('usres',users);
+ 
     
     return {tours:tours,users:users.user}
 }
