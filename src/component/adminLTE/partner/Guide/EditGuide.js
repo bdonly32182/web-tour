@@ -12,6 +12,8 @@ import GuideForm from '../Form/GuideForm'
      }
     render() {
         const {match,formValue,users,CreateGuide,UpdateGuide,guide} = this.props
+        console.log('form guide',formValue);
+        
         return (
             <div>
                

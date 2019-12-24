@@ -25,8 +25,8 @@ export default class Header extends Component {
                                 {/* User Account: style can be found in dropdown.less */}
                                 <li className="dropdown user user-menu">
                                     <a href="fake_url" className="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="dist/img/user2-160x160.jpg" className="user-image" alt="User" />
-                                        <span className="hidden-xs">Alexander Pierce</span>
+                                        {/* <img src="dist/img/user2-160x160.jpg" className="user-image" alt="User" /> */}
+                                        {/* <span className="hidden-xs">Alexander Pierce</span> */}
                                     </a>
                                     <ul className="dropdown-menu">
                                         {/* User image */}

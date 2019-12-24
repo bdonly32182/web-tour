@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import {Link} from 'react-router-dom'
 export default class Menubar extends Component {
     constructor(props){
         super(props)
@@ -44,8 +44,8 @@ export default class Menubar extends Component {
                             </span>
                         </a>
                         <ul className="treeview-menu">
-                            <li><a href="index.html"><i className="fa fa-circle-o" /> Dashboard v1</a></li>
-                            <li className="active"><a href="index2.html"><i className="fa fa-circle-o" /> Dashboard v2</a></li>
+                            <li><Link to="/manage/tour" className="text-danger"> <i className="fa fa-circle-o" /> tour</Link></li>
+                            <li className="active"> <Link to="/manage/guide" className="text-danger">Guide</Link><i className="fa fa-circle-o" /> </li>
                         </ul>
                     </li>
                     

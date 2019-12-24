@@ -4,30 +4,38 @@ import {withRouter} from 'react-router-dom'
     constructor(props){
         super(props)
     }
+    componentDidMount () {
+        const script = document.createElement('script')
+        script.src ='js/content.js';
+        script.async = true;
+
+        document.body.appendChild(script)
+
+    }
    
     render() {
         const {_id,tourName,place,description,duration,highlight,Hotel,Guide}  = this.props.tours
         
         return (
-            <div key={_id}>
-               
-                 <table >
-                             <thead>
+            <div>
+                  <table id="example2" className="table table-bordered table-hover">
+                            <thead>
                                     <tr>
-                                    <th className="text-danger text-center" scope="col">id</th>
-                                    <th className="text-danger text-center" scope="col">Tourname</th>
-                                    <th className="text-danger text-center"scope="col">Place(s)</th>
-                                    <th className="text-danger text-center"scope="col">Description</th>
-                                    <th className="text-danger text-center" scope="col">Duration</th>
-                                    <th className="text-danger text-center" scope="col">Hightligh</th>
-                                    <th className="text-danger text-center" scope="col">Hotel</th>
-                                    <th className="text-danger text-center" scope="col">Guide</th>
-
+                                    <th className=" text-center" scope="col">id</th>
+                                    <th className=" text-center" scope="col">Tourname</th>
+                                    <th className=" text-center"scope="col">Place(s)</th>
+                                    <th className=" text-center"scope="col">Description</th>
+                                    <th className=" text-center" scope="col">Duration</th>
+                                    <th className=" text-center" scope="col">Hightligh</th>
+                                    <th className=" text-center" scope="col">Hotel</th>
+                                    <th className=" text-center" scope="col">Guide</th>
+                                    <th className=" text-center" scope="col">Action</th>
+   
                                     </tr>
                                 </thead>
                                 <tbody >
                                     <tr>
-                                        <td>{_id}</td>
+                                        <td className="text-dark">{_id}</td>
                                         <td>{tourName}</td>
                                         <td>{place}</td>
                                         <td>{description}</td>
@@ -41,7 +49,9 @@ import {withRouter} from 'react-router-dom'
                                         </td>
                                     </tr>
                                 </tbody>
-                </table>
+                           
+                            </table>
+
             </div>
         )
     }

@@ -27,7 +27,7 @@ export const Tourfield =[
 ]
 
 export const Guidefield =[
-    {label:"License of Guide" , type:"text",name:'License',required:true},
+    {label:"License of Guide" , type:"text",name:'license',required:true},
     {label:"Firstname" , type:"text",name:'Firstname',required:true},
     {label:"Lastname " , type:"text",name:'Lastname',required:true},
     {label:"Email " , type:"email",name:'Email',required:true},

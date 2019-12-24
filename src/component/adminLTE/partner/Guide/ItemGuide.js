@@ -5,7 +5,7 @@ export default class ItemGuide extends Component {
         const {_id,Firstname,Lastname,Email,Address,Tel} = this.props.guide
         return (
             <div>
-                 <table >
+                 <table id="example2" className="table table-bordered table-hover">
                              <thead>
                                     <tr>
                                     <th className="text-danger text-center" scope="col">id</th>
@@ -14,7 +14,7 @@ export default class ItemGuide extends Component {
                                     <th className="text-danger text-center"scope="col">Email</th>
                                     <th className="text-danger text-center" scope="col">Address</th>
                                     <th className="text-danger text-center" scope="col">Tel</th>
-                                   
+                                    <th className="text-danger text-center" scope="col">action</th>
 
                                     </tr>
                                 </thead>
@@ -26,7 +26,6 @@ export default class ItemGuide extends Component {
                                         <td>{Email}</td>
                                         <td>{Address}</td>
                                         <td>{Tel}</td>
-                                       
                                         <td>
                                             <button className="btn btn-primary" onClick={()=>this.props.onEditGuide(this.props.guide)}>edit</button>
                                             <button className="btn btn-danger" onClick={()=>this.props.onDelGuide(this.props.guide)}>delete</button>

@@ -4,6 +4,9 @@ import {withRouter} from 'react-router-dom'
 import {guidesFetch,DelGuide} from '../../../../action'
 import ItemGuide from './ItemGuide'
 import { registerField } from 'redux-form'
+import Header from '../../Header'
+import Menubar from '../../Menubar'
+import Footer from  '../../Footer'
  class ListGuide extends Component {
      constructor(props){
          super(props)
@@ -31,9 +34,49 @@ import { registerField } from 'redux-form'
      }
     render() {
         return (
-            <div className="row">
-                <button className="btn btn-success" onClick={()=>this.props.history.push('/manage/guide/add')}>Create</button>
-                {this.showListGuide()}
+            <div > <Header />
+            <Menubar />
+            <div className="content-wrapper">
+            {/* Content Header (Page header) */}
+            <section className="content-header">
+                <h1>
+                Data Tables
+                <small>advanced tables</small>
+                </h1>
+                <ol className="breadcrumb">
+                <li><a href="#"><i className="fa fa-dashboard" /> Home</a></li>
+                <li><a href="#">Tables</a></li>
+                <li className="active">Data tables</li>
+                </ol>
+            </section>
+            {/* Main content */}
+            <section className="content">
+                <div className="row">
+                <div className="col-xs-12">
+                    <div className="box">
+                    <div className="box-header">
+                        <h3 className="box-title">Tour Data Table</h3>
+
+                    </div>
+                    {/* /.box-header */}
+                    <div className="box-body">
+                        
+                        <button className="btn btn-success" onClick={()=>this.props.history.push('/manage/guide/add')}>Create</button>
+                         {this.showListGuide()}
+                    </div>
+                    {/* /.box-body */}
+                    </div>
+                    {/* /.box */}
+                </div>
+                {/* /.col */}
+                </div>
+                {/* /.row */}
+            </section>
+            {/* /.content */}
+            </div>
+           
+            <Footer />
+                
             </div>
         )
     }

@@ -13,8 +13,8 @@ import Content from './Content'
           if(users.role == "admin"){
               return (
                         <div className='container-fluid'>
-                            {/* <Header />
-                            <Menubar /> */}
+                            <Header />
+                            <Menubar />
                             <div className="row">
                                 <p><Link to="/manage/approve" className="text-danger">Approve</Link> </p>
                             </div>
@@ -27,6 +27,7 @@ import Content from './Content'
             return (
                 <div className='container-fluid'>
                 <Header />
+                <Menubar />
                 <div className="row">
                     <p><Link to="/manage/tour" className="text-danger">tour</Link> </p>
                     <p><Link to="/manage/guide" className="text-danger">Guide</Link></p>

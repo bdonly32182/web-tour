@@ -21,11 +21,7 @@ class Login extends Component {
                         <div className="row">
                                 <HeaderHome /> 
                         </div>
-                        <hr></hr>
-                        <br />
-                        <br />
-                        <br />
-                        <br/>
+                     
                         <div className="row ">
                             <div className="col-md-4">
 
@@ -49,12 +45,7 @@ class Login extends Component {
                             </div>
                         </div>
                         <br/>
-                         <div className="row">
-                             <div className="col">
-                                <FooterHome />
-                             </div>
-                           
-                         </div>
+                       
                    
                     </div>
                         

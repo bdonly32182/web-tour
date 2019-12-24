@@ -20,10 +20,7 @@ import FooterHome from './contenthome/FooterHome'
                             
                                 
                         </div>
-                        <br />
-                        <br />
-                        <br />
-                        
+                       
                     </div>
                     <div className="row">
                         <div className="col-md-4"></div>
@@ -47,7 +44,6 @@ import FooterHome from './contenthome/FooterHome'
                     
                 </div>
                
-                <FooterHome />
                 
             </div>
         )

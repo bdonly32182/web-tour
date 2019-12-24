@@ -19,7 +19,6 @@ import RegisterFormField from '../../common/RegisterFormField'
                 <form onSubmit= {this.props.handleSubmit(onSubmitRegister)}>
                     {this.renderRegistForm(Registerfield)}
                     <br/>
-                    <p className="text-primary"><input type="checkbox" ></input> I'm Agree</p>
                  
                     <button className="btn btn-block btn-info">Register</button>
                     <br/>
