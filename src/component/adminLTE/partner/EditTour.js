@@ -2,15 +2,44 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {CreateTour,tourFetch,UpdateTour} from '../../../action'
 import TourForm from './Form/TourForm'
-
+import ReactDropzone from 'react-dropzone'
  class EditTour extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            files:[]
+        }
+    }
      componentDidMount(){
         if(this.props.match.params.id){
             this.props.tourFetch(this.props.match.params.id)
         }
      }
-    render() {
+     onChangHandle =(event)=>{
+        this.setState({
+            selectFile:event.target.files
+        })
+    }
+    // funcHandle =()=>{
+        
+        
+    //     const formData = new FormData()
+    //             var arr=[]
+    //         for (const key of Object.keys(this.state.selectFile)) {                
+    //             formData.append('file',this.state.selectFile[key])
+    //             arr=[formData.get('file')]
+    //         }
+        
+    //     return arr
+    // }
+   
+    render () {
         const {match,formValue,users,CreateTour,UpdateTour,tours} = this.props
+       const previewStyle ={
+           display:"inline",
+           width:100,
+           hight:100
+       }
         
         return (
             <div>
@@ -33,7 +62,11 @@ import TourForm from './Form/TourForm'
                               
                              <p>ADD</p>
                              <p className="text-center">
-                                  <TourForm onSubmit={()=>CreateTour(formValue,users)}/>
+                         <input type="file" name="image" className="form-control" multiple onChange={this.onChangHandle}></input>
+
+                                  <TourForm onSubmit={()=>CreateTour(formValue,users,this.funcHandle())}/>
+
+                                \
                             </p>
                           </div>
                         }

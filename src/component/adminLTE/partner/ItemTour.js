@@ -29,6 +29,7 @@ import {withRouter} from 'react-router-dom'
                                     <th className=" text-center" scope="col">Hightligh</th>
                                     <th className=" text-center" scope="col">Hotel</th>
                                     <th className=" text-center" scope="col">Guide</th>
+                                    <th className=" text-center" scope="col">Amount</th>
                                     <th className=" text-center" scope="col">Action</th>
    
                                     </tr>
@@ -43,6 +44,7 @@ import {withRouter} from 'react-router-dom'
                                         <td>{highlight}</td>
                                         <td>{Hotel}</td>
                                         <td>{Guide}</td>
+                                        <td>{this.props.count}</td>
                                         <td>
                                             <button className="btn btn-primary" onClick={()=>this.props.onEditTour(this.props.tours)}>edit</button>
                                             <button className="btn btn-danger" onClick={()=>this.props.onDelTour(this.props.tours)}>delete</button>

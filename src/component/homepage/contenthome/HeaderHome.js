@@ -6,17 +6,25 @@ export default class HeaderHome extends Component {
         this.state= {date : new Date()}
         
     }
-    componentDidMount(){
-          setInterval(()=>
-             this.tick()
-            // this.setState({date:new Date()})
-        ,1000)
-    }
+    // componentDidMount(){
+    //     this._isMounted = true;
+        
+    //         setInterval(()=>
+            
+    //          this.tick()
+    //         // this.setState({date:new Date()})
+    //     ,1000)
+        
+          
+    // }
+    // componentWillUnmount() {
+    //     this._isMounted = false;
+    //   }
   
 
-    tick(){
-        this.setState({date:new Date()})
-    }
+    // tick(){
+    //     this.setState({date:new Date()})
+    // }
     render() {
         const style = {height:50,marginTop:20}
 
@@ -27,7 +35,7 @@ export default class HeaderHome extends Component {
                     <a className="navbar-brand" href="/" title="HOME"><i className="ion-paper-airplane" /> Best $ Ploy <span>travel</span></a>
                 </div>
                 <div className="col-md-4 text-center">
-                    <p className="text-info" style={style}>{this.state.date.toLocaleTimeString()} </p>  
+                    {/* <p className="text-info" style={style}>{this.state.date.toLocaleTimeString()} </p>   */}
                 </div>
                 <div className="col-md-4 text-right">
                 <ul className="list-inline">

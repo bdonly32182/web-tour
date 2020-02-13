@@ -4,6 +4,12 @@ import {connect} from 'react-redux'
 import {Tourfield} from '../../../homepage/Form/IntregateForm'
 import  TourFromField from '../../../common/TourFromField'
  class TourForm extends Component {
+     constructor(props){
+         super(props)
+         this.state={
+             selectFile:null
+         }
+     }
      renderTourForm =(field)=>{
             return field.map(({label,type,name,required})=>{
                 return(
@@ -11,12 +17,15 @@ import  TourFromField from '../../../common/TourFromField'
                 )
             })
      }
+     
     render() {
         const {onSubmit}  = this.props
         return (
             <div>
                 <form onSubmit={this.props.handleSubmit(onSubmit)}>
                     {this.renderTourForm(Tourfield)}
+                    
+                    
                     <button className="btn btn-block btn-info">Create Tour</button>
                 </form>
             </div>

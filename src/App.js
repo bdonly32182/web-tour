@@ -9,6 +9,7 @@ import ListTour from './component/adminLTE/partner/ListTour'
 import EditTour from './component/adminLTE/partner/EditTour'
 import ListGuide from './component/adminLTE/partner/Guide/ListGuide'
 import EditGuide from './component/adminLTE/partner/Guide/EditGuide'
+import ListOrder from './component/adminLTE/partner/Order/ListOrder'
  class App extends Component {
 constructor(props){
   super(props)
@@ -29,7 +30,7 @@ constructor(props){
         <Route exact path="/manage/guide" component={ListGuide}/>
         <Route exact path="/manage/guide/add" component={EditGuide}/>
         <Route exact path="/manage/guide/edit/:id" component ={EditGuide}/>
-        
+        <Route exact path="/manage/order" component={ListOrder} />
       </Switch>
         
       </div>

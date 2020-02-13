@@ -7,7 +7,7 @@ import Menubar from './Menubar'
 import Footer from './Footer'
 import Content from './Content'
  class IntregateLTE extends Component {
-
+    
    showadminLTE(users){
        if(users){
           if(users.role == "admin"){

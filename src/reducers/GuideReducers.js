@@ -1,4 +1,4 @@
-import {GUIDEFETCH,GUIDESFETCH,CREATE_GUIDE,UPDATE_GUIDE,DELETE_GUIDE} from '../action/Type'
+import {GUIDEFETCH,GUIDESFETCH,CREATE_GUIDE,UPDATE_GUIDE,DELETE_GUIDE, ASSIGNMENT_GUIDE} from '../action/Type'
 
 export default function(state=[],action){
     switch (action.type) {
@@ -12,6 +12,8 @@ export default function(state=[],action){
             return action.payload;
         case DELETE_GUIDE:
             return action.payload;
+        case ASSIGNMENT_GUIDE:
+            return action.payload
         default:
             return state;
     }

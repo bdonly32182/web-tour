@@ -19,11 +19,24 @@ export const tourFetch =(id)=>{
             })
     }
 }
-export const CreateTour =(value,partner)=>{
+export const CreateTour =(value,partner,file)=>{
     return dispatch =>{
+        console.log(file);
+        
+            // const formData = new FormData()
+            // for (const key of Object.keys(file)) {                
+            //     formData.append('file',file[key])
+            // }
+
+            // console.log(formData);
+            
             const data = {
                 form:value,
-                users:partner
+                users:partner,
+                formData:file
+            }
+            const config = {     
+                headers: { 'content-type': 'multipart/form-data' }
             }
         axios.post('http://localhost:3001/api/tour',data)
             .then(res=>{

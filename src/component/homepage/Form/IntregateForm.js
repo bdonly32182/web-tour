@@ -23,7 +23,7 @@ export const Tourfield =[
     {label:"Duration" , type:"text",name:'duration',required:true},
     {label:"Highlight" , type:"text",name:'highlight',required:true},
     {label:"Hotel" , type:"text",name:'Hotel',required:true},
-    {label:"PathPictur" , type:"file",name:'PathPictur',required:false}
+    // {label:"PathPictur" , type:"file",name:'PathPictur',required:false}
 ]
 
 export const Guidefield =[

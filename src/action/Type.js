@@ -16,3 +16,6 @@ export const CREATE_GUIDE="create_guide"
 export const DELETE_GUIDE='delete_guide'
 export const UPDATE_GUIDE="update_guide"
 export const ASSIGNMENT_GUIDE ="assignment_guide"
+
+export const ORDERFETCH = "order_fetch"
+export const APPROVEORDER="approve_order"

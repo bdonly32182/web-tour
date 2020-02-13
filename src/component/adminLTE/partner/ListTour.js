@@ -11,17 +11,40 @@ import Footer from '../Footer'
          super(props)
          this.onDelTour =this.onDelTour.bind(this)
          this.onEditTour = this.onEditTour.bind(this)
+         this.state={
+             search:''
+         }
      }
      componentDidMount(){
         this.props.toursFetch()
      }
-     showListTour=()=>{
-            return this.props.tours && Array.isArray(this.props.tours) &&this.props.tours.map((tours,indexTour)=>(
+     showListTour(){
+         console.log(this.props.tours.tour);
+         
+         if(Array.isArray(this.props.tours.tour)){
+             console.log('lowercase unifind');
+             
+             let filterTour =  this.props.tours.tour.filter((tour)=>{
+                    
+                    return tour.tourName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+                    //guide.Firstname.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+                })
+                return  filterTour.map((tours,index)=>(
+                    <div>
+                        
+                        <ItemTour key={index}  tours ={tours} onDelTour={this.onDelTour} onEditTour={this.onEditTour} count={this.props.tours.Count}/>
+                    </div>
+                ))
+         }else{
+             return this.props.tours.tour &&Array.isArray(this.props.tours.tour)&& this.props.tours.tour.map((tours,index)=>(
                 <div>
                     
-                    <ItemTour key={tours._id} indexTour={indexTour=+1} tours ={tours} onDelTour={this.onDelTour} onEditTour={this.onEditTour}/>
+                    <ItemTour key={index}  tours ={tours} onDelTour={this.onDelTour} onEditTour={this.onEditTour} count={this.props.tours.Count}/>
                 </div>
-            ))
+            )) 
+         }
+                
+           
      }
      onDelTour(tour){
         this.props.DelTour(tour._id)
@@ -29,6 +52,10 @@ import Footer from '../Footer'
      onEditTour(tour){
         this.props.history.push('/manage/tour/edit/'+tour._id)
      }
+     UpdateSearchData =(event)=>{
+        
+        this.setState({search:event.target.value})
+    }
     render() {
         console.log(this.props.users);
         
@@ -48,6 +75,7 @@ import Footer from '../Footer'
                     <li><a href="#">Tables</a></li>
                     <li className="active">Data tables</li>
                     </ol>
+                    
                 </section>
                 {/* Main content */}
                 <section className="content">
@@ -56,7 +84,10 @@ import Footer from '../Footer'
                         <div className="box">
                         <div className="box-header">
                             <h3 className="box-title">Tour Data Table</h3>
-
+                            <p className="text-right">
+                                    Search TourName:<input type="text" onChange={this.UpdateSearchData.bind(this)}></input>
+                            </p>
+                            
                         </div>
                         {/* /.box-header */}
                         <div className="box-body">
@@ -81,8 +112,8 @@ import Footer from '../Footer'
     }
 }
 function mapStateToProps({tours,users}){
- 
-    
+        console.log(users);        
+        
     return {tours:tours,users:users.user}
 }
 export default withRouter(connect(mapStateToProps,{toursFetch,DelTour,UpdateTour})(ListTour))

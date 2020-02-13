@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GUIDESFETCH,GUIDEFETCH,CREATE_GUIDE,UPDATE_GUIDE,DELETE_GUIDE} from './Type'
+import {GUIDESFETCH,GUIDEFETCH,CREATE_GUIDE,UPDATE_GUIDE,DELETE_GUIDE,ASSIGNMENT_GUIDE} from './Type'
 
 export const guidesFetch =()=>{
     return dispatch =>{
@@ -53,6 +53,22 @@ export const DelGuide =(id)=>{
             .then(res=>{
                 console.log(res.data);
                 dispatch({type:DELETE_GUIDE,payload:res.data})
+            })
+    }
+}
+
+export const AssignGuide = (guide,tour)=>{
+   
+    
+    
+    return dispatch =>{
+              
+            const assign = {guidId: guide._id,assignTour:tour}
+            console.log(assign);
+            
+        axios.post('http://localhost:3001/api/guide/assign',assign)
+            .then(res=>{
+                dispatch({type:ASSIGNMENT_GUIDE,payload:res.data})
             })
     }
 }
