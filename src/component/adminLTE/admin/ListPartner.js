@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {partners,confirmPartner,delPartner} from '../../../action'
+import {partners,confirmPartner,delPartner,loadUser,Logout} from '../../../action'
 import ItemPartner from './ItemPartner'
 import Header from '../Header'
 import Footer from '../Footer'
@@ -12,9 +12,12 @@ import Menubar from '../Menubar'
         this.confirmPartner = this.confirmPartner.bind(this)
         this.delPartner =this.delPartner.bind(this)
     }
-     componentDidMount(){
-         this.props.partners()
-         
+   async  componentDidMount(){
+        
+         await  this.props.loadUser()
+            this.props.partners()
+            this.props.users&&this.props.users.role != "partner" &&this.props.history.push('/not_role')
+            !this.props.token&&this.props.history.push('/')
      }
     
     
@@ -36,13 +39,16 @@ import Menubar from '../Menubar'
      delPartner = partner =>{
          this.props.delPartner(partner._id)
      }
+     onLogout =()=>{
+        this.props.Logout()
+    }
     render() {
         console.log('show');
         
         return (
             <div>
-            <Header />
-            <Menubar />
+            <Header user ={this.props.users} onLogout ={this.onLogout}/>
+            <Menubar user={this.props.users}/>
             <div className="content-wrapper">
             {/* Content Header (Page header) */}
             <section className="content-header">
@@ -89,6 +95,9 @@ import Menubar from '../Menubar'
 function mapStateToProps(state){
         console.log('state',state.partners);
         
- return {listpartner:state.partners}
+ return {
+     listpartner:state.partners,
+     users:state.users.user
+    }
 }
-export default connect(mapStateToProps,{partners,confirmPartner,delPartner})(ListPartner);
+export default connect(mapStateToProps,{partners,confirmPartner,delPartner,loadUser,Logout})(ListPartner);

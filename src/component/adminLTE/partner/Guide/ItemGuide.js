@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 export default class ItemGuide extends Component {
     constructor(props){
         super(props)
-        this.state = {value: ''};
+        this.state = {value: null};
         this.handleChange = this.handleChange.bind(this)
         this.mapOption = this.mapOption.bind(this)
     }
@@ -41,7 +41,7 @@ export default class ItemGuide extends Component {
                                     <th className="text-danger text-center" scope="col">Address</th>
                                     <th className="text-danger text-center" scope="col">Tel</th>
                                     <th className="text-danger text-center" scope="col">Status</th>
-                                    <th className="text-danger text-center" scope="col">Select Tour</th>
+                                    {/* <th className="text-danger text-center" scope="col">Select Tour</th> */}
                                     <th className="text-danger text-center" scope="col">action</th>
 
                                     </tr>
@@ -55,30 +55,28 @@ export default class ItemGuide extends Component {
                                         <td>{Address}</td>
                                         <td>{Tel}</td>
                                         <td>{Status.toString()}</td>
-                                        {Status.toString() === "true" &&
+                                        {/* {Status.toString() === "true" &&
                                         <td>
                                         <select value={this.state.value} onChange={this.handleChange}>
                                             <option disabled selected>-- Working --</option>
                                             
                                         </select>
                                          </td>
-                                        }
-                                        {Status.toString() !== "true" &&
+                                        } */}
+                                        {/* {Status.toString() !== "true" &&
                                          <td>
-                                            <select value={this.state.value} onChange={this.handleChange}>
-                                                <option  selected>-- Select --</option>
+                                            <select value={this.state.value} onChange={this.handleChange} defaultValue={null}>
+                                                <option  selected value={null}>-- Select --</option>
                                                 {Array.isArray(this.props.tour)&&this.props.tour.map((tour,index)=>(
                                                     <option key={index} value={tour.tourName} >{tour.tourName}</option>
                                                 ))}
                                             </select>
                                         </td>
-                                        }
+                                        } */}
                                        
                                         <td>
-                                            <button className="btn btn-primary" onClick={()=>this.props.onEditGuide(this.props.guide)}>     edit</button>
+                                            <button className="btn btn-primary" onClick={()=>this.props.onEditGuide(this.props.guide)}>  edit</button>
                                             <button className="btn btn-danger" onClick={()=>this.props.onDelGuide(this.props.guide)}>  delete</button>
-                                            <button className="btn btn-warning" onClick={()=>this.props.onAssign(this.props.guide,this.state.value)} >Assignment</button>
-                                         
                                         </td>
                                     </tr>
                                 </tbody>

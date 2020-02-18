@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import {orderFetch,approveOrder} from '../../../../action'
+import {orderFetch,approveOrder,loadUser,Logout} from '../../../../action'
 import Header from '../../Header'
 import Menubar from '../../Menubar'
 import Footer from '../../Footer'
@@ -11,10 +11,14 @@ constructor(props){
     super(props)
     this.approve = this.approve.bind(this)
 }
-    componentDidMount(){
-        console.log('didmout');
+   async componentDidMount(){
+       
+          await  this.props.loadUser()
+            this.props.orderFetch()
+            this.props.users&&this.props.users.role != "partner" &&this.props.history.push('/not_role')
         
-        this.props.orderFetch()
+            !this.props.token&&this.props.history.push('/')
+       
     }
 
     showOrder =()=>{
@@ -29,14 +33,18 @@ constructor(props){
         
     }
     approve=(order)=>{
-        this.props.approveOrder(order._id)
+        this.props.approveOrder(order._id,this.props.users)
+    }
+    onLogout =()=>{
+        this.props.Logout()
     }
     render() {
         console.log('show');
         
         return (
-            <div > <Header />
-            <Menubar />
+            <div > 
+            <Header user ={this.props.users} onLogout ={this.onLogout}/>
+            <Menubar user={this.props.users}/>
             <div className="content-wrapper">
             {/* Content Header (Page header) */}
             <section className="content-header">
@@ -83,7 +91,7 @@ constructor(props){
         )
     }
 }
-function mapStateToProp({order}){
-    return {order:order}
+function mapStateToProp({order,users}){
+    return {order:order,users:users.user,token:users.token}
 }
-export default connect(mapStateToProp,{orderFetch,approveOrder})(ListOrder)
+export default connect(mapStateToProp,{orderFetch,approveOrder,loadUser,Logout})(ListOrder)

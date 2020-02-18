@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {guidesFetch,DelGuide,toursFetch,AssignGuide} from '../../../../action'
+import {guidesFetch,DelGuide,toursFetch,AssignGuide,loadUser,Logout} from '../../../../action'
 import ItemGuide from './ItemGuide'
 import { registerField } from 'redux-form'
 import Header from '../../Header'
@@ -18,32 +18,40 @@ import Alert from 'reactstrap'
              visible:false
          }
      }
-     componentDidMount(){
-
-        this.props.guidesFetch()
-        this.props.toursFetch()
+    async componentDidMount(){
+        // console.log('didmount listguide');
+        
+          await  this.props.loadUser()
+            this.props.guidesFetch()
+            this.props.toursFetch()
+            
+            this.props.users&&this.props.users.role != "partner" &&this.props.history.push('/not_role')
+        
+            !this.props.token&&this.props.history.push('/')
+        
      }
      
      showListGuide(){
          if(Array.isArray(this.props.guide.guide)){
+            //  console.log('if case');
             let searchFilter = this.props.guide.guide.filter((guide)=>{
                 
                     return guide.Firstname.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
                 }) 
                 return  searchFilter.map((guides,index)=>
                     (
-                        <div>
+                        <div key={index}>
                             <ItemGuide key ={index} guide={guides} onDelGuide={this.onDelGuide} onEditGuide={this.onEditGuide}onAssign={this.onAssign} tour = {this.props.tours.tour} err={this.props.guide.msg}/>
                         </div>
                      
                      )
                  )
          }else{
-             console.log('else case');
+            //  console.log('else case');
              
              return  this.props.guide.guide&&Array.isArray(this.props.guide.guide) && this.props.guide.guide.map((guides,index)=>
             (
-                <div>
+                <div key={index}>
                     <ItemGuide key ={index} guide={guides} onDelGuide={this.onDelGuide} onEditGuide={this.onEditGuide}tour = {this.props.tours.tour} onAssign={this.onAssign}  err={this.props.guide.msg}/>
                 </div>
              
@@ -73,12 +81,16 @@ import Alert from 'reactstrap'
          })
          
      }
+     onLogout =()=>{
+        this.props.Logout()
+    }
     render() {
         console.log(this.props.guide.guide);
         
         return (
-            <div > <Header />
-            <Menubar />
+            <div > 
+            <Header user ={this.props.users} onLogout ={this.onLogout}/>
+            <Menubar user={this.props.users}/>
             <div className="content-wrapper">
             {/* Content Header (Page header) */}
             <section className="content-header">
@@ -139,10 +151,10 @@ import Alert from 'reactstrap'
     }
 }
 function mapStateToProp({guide,users,tours}){
-    console.log('guide',guide);
-    console.log('g user',users);
-    console.log('g tour',tours);
+    // console.log('guide',guide);
+    // console.log('g user',users);
+    // console.log('g tour',tours);
     
-    return {guide:guide,users:users,tours:tours}
+    return {guide:guide,users:users.user,tours:tours,token:users.token}
 }
-export default withRouter(connect(mapStateToProp,{guidesFetch,DelGuide,toursFetch,AssignGuide})(ListGuide))
+export default withRouter(connect(mapStateToProp,{guidesFetch,DelGuide,toursFetch,AssignGuide,loadUser,Logout})(ListGuide))

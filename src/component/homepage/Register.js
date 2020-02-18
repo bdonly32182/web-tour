@@ -8,8 +8,7 @@ import FooterHome from './contenthome/FooterHome'
 
     render() {
         const {formValue,users,userRegister} = this.props
-        console.log(formValue);
-        console.log(users);
+        
         
         return (
             <div>
@@ -36,9 +35,9 @@ import FooterHome from './contenthome/FooterHome'
                                 </div>
 
                               }
-                             <p className="text-center">
+                            
                                  <RegisterForm onSubmitRegister = {()=>userRegister(formValue) } />
-                            </p>
+                            
                           </div>
                     </div>
                     

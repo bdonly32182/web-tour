@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import HeaderHome from './contenthome/HeaderHome'
-import FooterHome from './contenthome/FooterHome'
 import LoginForm from './Form/LoginForm'
 import {userLogin} from '../../action'
-import IntregateLTE from '../adminLTE/IntregateLTE'
 class Login extends Component {
 
     constructor(props){
@@ -30,14 +28,14 @@ class Login extends Component {
                             <div className="col-md-4">
                                
                                 
-                                <p className="text title">
+                               
                                 {users.length !=0 && users.isMail && 
                                     <div className="alert alert-danger">{users.isMail}</div>
                                     || users.isPass &&
                                     <div className="alert alert-danger">{users.isPass}</div>
                                 }
                                      <LoginForm onSubmitLogin={()=>userLogin(formValue)} users={users} />
-                                </p>
+                                
                                 {users.isSuccess &&
                                     this.props.history.push('/manage')
                                    

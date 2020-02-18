@@ -1,9 +1,15 @@
 import axios from 'axios'
 import {GUIDESFETCH,GUIDEFETCH,CREATE_GUIDE,UPDATE_GUIDE,DELETE_GUIDE,ASSIGNMENT_GUIDE} from './Type'
-
+const token = localStorage.getItem('token')
 export const guidesFetch =()=>{
     return dispatch =>{
-        axios.get('http://localhost:3001/api/guide')
+        const config = {
+            headers: {
+              'Content-type': 'application/json',
+              'auth-token':token
+            }
+          };
+        axios.get('http://localhost:3001/api/guide',config)
             .then(res=>{
                 console.log(res.data);
                 dispatch({type:GUIDESFETCH,payload:res.data})
@@ -28,6 +34,7 @@ export const CreateGuide =(form,user)=>{
             form:form,
             users:user
         }
+       
         axios.post('http://localhost:3001/api/guide',data)
             .then(res=>{
                 console.log(res.data);
@@ -65,8 +72,13 @@ export const AssignGuide = (guide,tour)=>{
               
             const assign = {guidId: guide._id,assignTour:tour}
             console.log(assign);
-            
-        axios.post('http://localhost:3001/api/guide/assign',assign)
+            const config = {
+                headers: {
+                  'Content-type': 'application/json',
+                  'auth-token':token
+                }
+              };
+        axios.post('http://localhost:3001/api/guide/assign',assign,config)
             .then(res=>{
                 dispatch({type:ASSIGNMENT_GUIDE,payload:res.data})
             })

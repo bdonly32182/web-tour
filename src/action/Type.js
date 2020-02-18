@@ -19,3 +19,9 @@ export const ASSIGNMENT_GUIDE ="assignment_guide"
 
 export const ORDERFETCH = "order_fetch"
 export const APPROVEORDER="approve_order"
+
+export const USER_LOADING = "USER_LOADING";
+export const USER_LOADED = "USER_LOADED";
+export const AUTH_ERROR = "AUTH_ERROR";
+export const USER_LOGOUT ="USER_LOGOUT"
+export const USER_LOGIN_FAILE ="USER_LOGIN_FAILE"

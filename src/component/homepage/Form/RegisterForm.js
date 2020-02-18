@@ -22,7 +22,7 @@ import RegisterFormField from '../../common/RegisterFormField'
                  
                     <button className="btn btn-block btn-info">Register</button>
                     <br/>
-                    <p className="text-right"><Link to="/login">Have a user Go to Login</Link></p>
+                    <p className="text-right"><Link to="/">Have a user Go to Login</Link></p>
                 </form>
             </div>
         )

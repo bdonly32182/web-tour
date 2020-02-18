@@ -6,21 +6,19 @@ export default class Menubar extends Component {
     }
     render() {
         const {user,pathPic} = this.props
+        
         return (
             <div>
             <aside className="main-sidebar">
             {/* sidebar: style can be found in sidebar.less */}
             <section className="sidebar">
                 {/* Sidebar user panel */}
-                <div className="user-panel">
+                {/* <div className="user-panel">
                     <div className="pull-left image">
-                        <img src={pathPic} className="img-circle" alt="User" />
+                        <h4 className="text-info">{user.email}</h4>
                     </div>
-                    <div className="pull-left info">
-                        <p>{user}</p>
-                        <a href="fake_url"><i className="fa fa-circle text-success" /> Online</a>
-                    </div>
-                </div>
+                    
+                </div> */}
                 {/* search form */}
                 <form action="#" method="get" className="sidebar-form">
                     <div className="input-group">
@@ -36,8 +34,9 @@ export default class Menubar extends Component {
                 {/* sidebar menu: : style can be found in sidebar.less */}
                 <ul className="sidebar-menu" data-widget="tree">
                     <li className="header">MAIN NAVIGATION</li>
-                    <li className="active treeview menu-open">
-                        <a href="fake_url">
+                    {user&&user.role ==="admin"&&(
+                        <li className="active treeview menu-open">
+                        <a >
                             <i className="fa fa-dashboard" /> <span>Approve Partner</span>
                             <span className="pull-right-container">
                                 <i className="fa fa-angle-left pull-right" />
@@ -45,9 +44,26 @@ export default class Menubar extends Component {
                         </a>
                         <ul className="treeview-menu">
                             <li><Link to="/manage/tour" className="text-danger"> <i className="fa fa-circle-o" /> tour</Link></li>
-                            <li className="active"> <Link to="/manage/guide" className="text-danger">Guide</Link><i className="fa fa-circle-o" /> </li>
+                            <li className="active"> <Link to="/manage/guide" className="text-danger"><i className="fa fa-circle-o" />Guide</Link> </li>
                         </ul>
-                    </li>
+                    </li> 
+                    )}
+                    {user&&user.role=="partner" &&(
+                           <li className="active treeview menu-open">
+                           <a >
+                               <i className="fa fa-dashboard" /> <span>Manager Tour</span>
+                               <span className="pull-right-container">
+                                   <i className="fa fa-angle-left pull-right" />
+                               </span>
+                           </a>
+                           <ul className="treeview-menu">
+                               <li className="active"><Link to="/manage/tour" className="text-danger"> <i className="fa fa-circle-o" /> Tour</Link></li>
+                               <li className="active"> <Link to="/manage/guide" className="text-danger"><i className="fa fa-circle-o" />Guide</Link> </li>
+                               <li className="active"> <Link to="/manage/order" className="text-danger"><i className="fa fa-circle-o" />Order</Link> </li>
+                           </ul>
+                       </li>
+                    )}
+                   
                     
                 </ul>
             </section>

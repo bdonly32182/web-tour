@@ -1,38 +1,62 @@
-import React, { Component } from 'react'
+import React, { Component,Fragment } from 'react'
 import {connect} from 'react-redux'
-import {CreateTour,tourFetch,UpdateTour} from '../../../action'
+import {CreateTour,tourFetch,UpdateTour,loadUser,guidesFetch} from '../../../action'
 import TourForm from './Form/TourForm'
-import ReactDropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone'
+const acceptType ="image/x-png, image/png , image/jpg , image/jpeg, image/gif"
+// const data = new FormData()
  class EditTour extends Component {
     constructor(props){
         super(props)
         this.state={
-            files:[]
+            files:[],
+            pdf:[]
         }
     }
-     componentDidMount(){
+    async componentDidMount(){
         if(this.props.match.params.id){
             this.props.tourFetch(this.props.match.params.id)
         }
+
+        await  this.props.loadUser()
+               this.props.guidesFetch()
+            this.props.users&&this.props.users.role != "partner" &&this.props.history.push('/not_role')
+        
+            !this.props.token&&this.props.history.push('/')
      }
      onChangHandle =(event)=>{
         this.setState({
             selectFile:event.target.files
         })
     }
-    // funcHandle =()=>{
+    onPreviewDrop = (files,rejectedfile) => {
+       
+        files.map(file => Object.assign(file, {
+            preview: URL.createObjectURL(file)
+          }))
+         
+        this.setState({
+          files: this.state.files.concat(files)
         
-        
-    //     const formData = new FormData()
-    //             var arr=[]
-    //         for (const key of Object.keys(this.state.selectFile)) {                
-    //             formData.append('file',this.state.selectFile[key])
-    //             arr=[formData.get('file')]
-    //         }
-        
-    //     return arr
-    // }
-   
+        });
+        rejectedfile.map(reject =>Object.assign(reject,{
+            preview:URL.createObjectURL(reject)
+        }))
+        this.setState({
+            pdf:this.state.pdf.concat(rejectedfile)
+        })
+  
+      };
+  onDelfile = async(delFile) =>{
+     let removeFile = await this.state.files.filter(file => file != delFile)
+     console.log(removeFile);
+     this.setState({files : removeFile})
+   }
+   onDelPdf = async(delPdf) =>{
+    let removePdf = await this.state.pdf.filter(file => file != delPdf)
+    console.log(removePdf);
+    this.setState({pdf : removePdf})
+  }
     render () {
         const {match,formValue,users,CreateTour,UpdateTour,tours} = this.props
        const previewStyle ={
@@ -40,7 +64,13 @@ import ReactDropzone from 'react-dropzone'
            width:100,
            hight:100
        }
-        
+       let upload = {
+            files:this.state.files,
+            pdf:this.state.pdf
+       }
+  
+       
+
         return (
             <div>
                
@@ -56,29 +86,150 @@ import ReactDropzone from 'react-dropzone'
                         
                     </div>
                     <div className="row">
-                        <div className="col-md-4"></div>
+                      
                         {match.path.indexOf('add') >0&&
-                          <div className="col-md-4">
-                              
-                             <p>ADD</p>
-                             <p className="text-center">
-                         <input type="file" name="image" className="form-control" multiple onChange={this.onChangHandle}></input>
-
-                                  <TourForm onSubmit={()=>CreateTour(formValue,users,this.funcHandle())}/>
-
-                                \
-                            </p>
+                          <div className="col-md-8">
+                              <div className="col-md-8">
+                                  <p>ADD</p>
+                             
+                                    <TourForm onSubmit={()=>CreateTour(formValue,users,upload)} guide={this.props.guide}/>  
+                            
+                              </div>
+                             
+                            <div className="col-md-4">
+                            <Dropzone onDrop={this.onPreviewDrop} accept="image/* pdf/*" >
+                                {({getRootProps, getInputProps}) => (
+                                    <div {...getRootProps()} >
+                                    <input {...getInputProps()} />
+                                    <p>Drag 'n' drop some files here, or click to select files</p>
+                                    </div>
+                                )}
+                            </Dropzone> 
+                            {this.state.files.length > 0 && (
+                            <Fragment>
+                                <h3>Previews Image</h3>
+                                {this.state.files.map(file => (
+                                    <div className="container" key={file.name}>
+                                        <div className="row">
+                                            <div>
+                                                <button className="btn btn-danger btn-sm title float-right" style={{display:'inline'}} onClick={()=>this.onDelfile(file)}>X</button>
+                                            </div>
+                                            <div className="col-md-1">
+                                                         <img
+                                                            alt="Preview"
+                                                            key={file.preview}
+                                                            src={file.preview}
+                                                            style={previewStyle}
+                                                        >
+                                                        </img>
+                                            </div>
+                                        </div>                      
+                                    </div>
+                                ))}
+                               
+                               
+                            </Fragment>
+                            )}
+                            {this.state.pdf.length >0 &&(
+                                <Fragment>
+                                    <h3>Preview  PDF</h3>
+                                     {this.state.pdf.map(pdf=>(
+                                         <div className="container" key={pdf.name}>
+                                             <div className="row">
+                                                 <div className="col-md-2">
+                                                 <li key={pdf.name}>{pdf.name}</li>
+                                                 </div>
+                                                 <div >
+                                                     <button className="btn btn-danger btn-sm title float-right" style={{display:'inline'}} onClick={()=>this.onDelPdf(pdf)}>X</button>
+                                                </div>
+                                             </div>
+                                         </div>
+                                ))}
+                                </Fragment>
+                            )}
+                        </div>
                           </div>
+                          
                         }
+                        
                          {match.path.indexOf('edit') >0&&
-                          <div className="col-md-4">
-                              
-                             <p>Edit</p>
-                             <p className="text-center">
-                                  <TourForm onSubmit={()=>UpdateTour(tours._id,formValue)}/>
-                            </p>
+                          <div className="col-md-8">
+                              <div className="col-md-8">
+                                  <p>Edit</p>
+                                    
+                                        <TourForm onSubmit={()=>UpdateTour(tours._id,formValue,upload,users)}guide={this.props.guide}/>
+                                     
+                            </div>
+                             
+                            <div className="col-md-4">
+                                
+                            <Dropzone onDrop={this.onPreviewDrop} accept="image/* pdf/*" >
+                                {({getRootProps, getInputProps}) => (
+                                    <div {...getRootProps()} >
+                                    <input {...getInputProps()} />
+                                    <p>Drag 'n' drop some files here, or click to select files</p>
+                                    </div>
+                                )}
+                            </Dropzone> 
+                            {this.state.files.length > 0 && (
+                            <Fragment>
+                                <h3>Previews Image</h3>
+                                {this.state.files.map(file => (
+                                    <div className="container" key={file.name}>
+                                        <div className="row">
+                                            <div>
+                                                <button className="btn btn-danger btn-sm title float-right" style={{display:'inline'}} onClick={()=>this.onDelfile(file)}>X</button>
+                                            </div>
+                                            <div className="col-md-1">
+                                                         <img
+                                                            alt="Preview"
+                                                            key={file.preview}
+                                                            src={file.preview}
+                                                            style={previewStyle}
+                                                        >
+                                                        </img>
+                                            </div>
+                                        </div>                      
+                                    </div>
+                                ))}
+                               
+                               
+                            </Fragment>
+                            )}
+                            {this.state.pdf.length >0 &&(
+                                <Fragment>
+                                    <h3>Preview  PDF</h3>
+                                     {this.state.pdf.map(pdf=>(
+                                         <div className="container" key={pdf.name}>
+                                             <div className="row">
+                                                 <div className="col-md-2">
+                                                 <li key={pdf.name}>{pdf.name}</li>
+                                                 </div>
+                                                 <div >
+                                                     <button className="btn btn-danger btn-sm title float-right" style={{display:'inline'}} onClick={()=>this.onDelPdf(pdf)}>X</button>
+                                                </div>
+                                             </div>
+                                         </div>
+                                ))}
+                                </Fragment>
+                            )}
+                        </div>
+                          </div>
+                          
+                        }
+                        {match.path.indexOf('check') >0&&
+                          <div className="col-md-8">
+                              <div className="col-md-4"></div>
+                              <div className="col-md-8">
+                                  <p>Check</p>
+                                    
+                                        <TourForm onSubmit={()=>UpdateTour(tours._id,formValue,upload)}guide={this.props.guide} disabled="disabled"/>
+                                     
+                             </div>
+
                           </div>
                         }
+                        
                     </div>
                     
                 </div>
@@ -89,7 +240,12 @@ import ReactDropzone from 'react-dropzone'
 }
 function mapStateToprops(state){
     console.log('edit state',state.users);
-    return {formValue:state.form.tourForm?state.form.tourForm.values:null,users:state.users,tours:state.tours}
+    return {formValue:state.form.tourForm?state.form.tourForm.values:null,
+        users:state.users.user,
+        tours:state.tours,
+        token:state.users.token,
+        guide:state.guide
+    }
     
 }
-export default connect(mapStateToprops,{CreateTour,tourFetch,UpdateTour})(EditTour)
+export default connect(mapStateToprops,{CreateTour,tourFetch,UpdateTour,loadUser,guidesFetch})(EditTour)

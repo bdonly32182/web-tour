@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {BrowserRouter,Route,Switch} from 'react-router-dom'
+import {BrowserRouter,Route,Switch, Redirect} from 'react-router-dom'
+
 
 import Login from './component/homepage/Login'
 import Register from './component/homepage/Register'
@@ -15,6 +16,7 @@ constructor(props){
   super(props)
   this.state={check:true}
 }
+
   renderRoute(){
     return(
       <div>
@@ -23,14 +25,16 @@ constructor(props){
         <Route exact path='/' component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/manage" component={IntregateLTE} />
-        <Route exact path="/manage/approve" component={ListPartner}/>
+        <Route exact path="/manage/approve" component={ListPartner} />
         <Route exact path="/manage/tour" component={ListTour}/>
         <Route exact path="/manage/tour/add" component={EditTour} />
         <Route exact path="/manage/tour/edit/:id" component={EditTour} />
+        <Route exact path="/manage/tour/check/:id" component={EditTour} />
         <Route exact path="/manage/guide" component={ListGuide}/>
         <Route exact path="/manage/guide/add" component={EditGuide}/>
         <Route exact path="/manage/guide/edit/:id" component ={EditGuide}/>
         <Route exact path="/manage/order" component={ListOrder} />
+        <Route path="*" component={()=>"404 NOT FOUND"} />
       </Switch>
         
       </div>

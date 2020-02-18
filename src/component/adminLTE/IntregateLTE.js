@@ -1,23 +1,44 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {withRouter,Link} from 'react-router-dom'
-import {userLogin} from '../../action'
+import {loadUser,userLogout} from '../../action/UserAction'
 import Header from './Header'
 import Menubar from './Menubar'
 import Footer from './Footer'
 import Content from './Content'
+const Token = localStorage.getItem('token')
  class IntregateLTE extends Component {
+     constructor(props){
+         super(props)
+         this.onLogout = this.onLogout.bind(this)
+     }
+    componentDidMount(){
+        console.log('didmount');
+        
+        if(Token){
+        this.props.dispatch(loadUser())
+        }else{
+            this.props.history.push('/')
+        }
+        
+    }
     
+    
+    onLogout =()=>{
+        this.props.dispatch(userLogout)    
+    }
    showadminLTE(users){
+      
+       
        if(users){
           if(users.role == "admin"){
               return (
                         <div className='container-fluid'>
-                            <Header />
-                            <Menubar />
-                            <div className="row">
+                            <Header user ={users} onLogout ={this.onLogout}/>
+                            <Menubar user={users}/>
+                            {/* <div className="row">
                                 <p><Link to="/manage/approve" className="text-danger">Approve</Link> </p>
-                            </div>
+                            </div> */}
                             
                             <Footer role="admin"/>
                         </div>
@@ -26,27 +47,15 @@ import Content from './Content'
           }else if(users.role == "partner"){
             return (
                 <div className='container-fluid'>
-                <Header />
-                <Menubar />
-                <div className="row">
-                    <p><Link to="/manage/tour" className="text-danger">tour</Link> </p>
-                    <p><Link to="/manage/guide" className="text-danger">Guide</Link></p>
-                </div>
+                <Header user ={users} onLogout ={this.onLogout}/>
+                <Menubar user={users}/>
+                
                 
                 <Footer role="partner"/>
             </div>
             )
           }
           
-       }else{
-           return (
-               <div>
-                   <Header />
-                   <Menubar user="test admin" pathPic ="http://localhost/Tour-image/cap.PNG"></Menubar>
-                   <Content />
-                   <Footer role="test"/>
-               </div>
-           )
        }
    }
 
@@ -62,7 +71,7 @@ import Content from './Content'
     }
 }
 function mapStateToProps(state){
-    console.log('state intregateLET',state);
+   
     return {users:state.users.user}
 }
 export default withRouter(connect(mapStateToProps)(IntregateLTE))

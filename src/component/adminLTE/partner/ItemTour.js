@@ -15,9 +15,10 @@ import {withRouter} from 'react-router-dom'
    
     render() {
         const {_id,tourName,place,description,duration,highlight,Hotel,Guide}  = this.props.tours
+      
         
         return (
-            <div>
+            <div >
                   <table id="example2" className="table table-bordered table-hover">
                             <thead>
                                     <tr>
@@ -29,7 +30,7 @@ import {withRouter} from 'react-router-dom'
                                     <th className=" text-center" scope="col">Hightligh</th>
                                     <th className=" text-center" scope="col">Hotel</th>
                                     <th className=" text-center" scope="col">Guide</th>
-                                    <th className=" text-center" scope="col">Amount</th>
+                                    <th className=" text-center" scope="col">จำนวนสมาชิก</th>
                                     <th className=" text-center" scope="col">Action</th>
    
                                     </tr>
@@ -48,6 +49,8 @@ import {withRouter} from 'react-router-dom'
                                         <td>
                                             <button className="btn btn-primary" onClick={()=>this.props.onEditTour(this.props.tours)}>edit</button>
                                             <button className="btn btn-danger" onClick={()=>this.props.onDelTour(this.props.tours)}>delete</button>
+                                            <button className="btn btn-primary" onClick={()=>this.props.onCheck(this.props.tours)}>check</button>
+
                                         </td>
                                     </tr>
                                 </tbody>

@@ -20,10 +20,11 @@ export const Tourfield =[
     {label:"Tour Name" , type:"text",name:'tourName',required:true},
     {label:"Place" , type:"text",name:'place',required:true},
     {label:"Description Tour" , type:"text",name:'description',required:true},
-    {label:"Duration" , type:"text",name:'duration',required:true},
-    {label:"Highlight" , type:"text",name:'highlight',required:true},
     {label:"Hotel" , type:"text",name:'Hotel',required:true},
-    // {label:"PathPictur" , type:"file",name:'PathPictur',required:false}
+    {label:"Amount Room" , type:"number",name:'Amountroom',required:true},
+    {label:"Price" , type:"number",name:'price',required:true},
+
+    
 ]
 
 export const Guidefield =[
