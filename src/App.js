@@ -11,6 +11,7 @@ import EditTour from './component/adminLTE/partner/EditTour'
 import ListGuide from './component/adminLTE/partner/Guide/ListGuide'
 import EditGuide from './component/adminLTE/partner/Guide/EditGuide'
 import ListOrder from './component/adminLTE/partner/Order/ListOrder'
+import OrderCheck from './component/adminLTE/partner/Order/OrderCheck'
  class App extends Component {
 constructor(props){
   super(props)
@@ -22,6 +23,7 @@ constructor(props){
       <div>
       
          <Switch>
+          
         <Route exact path='/' component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/manage" component={IntregateLTE} />
@@ -34,6 +36,7 @@ constructor(props){
         <Route exact path="/manage/guide/add" component={EditGuide}/>
         <Route exact path="/manage/guide/edit/:id" component ={EditGuide}/>
         <Route exact path="/manage/order" component={ListOrder} />
+        <Route exact path="/manage/order/:id" component={OrderCheck} />
         <Route path="*" component={()=>"404 NOT FOUND"} />
       </Switch>
         

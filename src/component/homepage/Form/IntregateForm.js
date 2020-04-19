@@ -21,7 +21,7 @@ export const Tourfield =[
     {label:"Place" , type:"text",name:'place',required:true},
     {label:"Description Tour" , type:"text",name:'description',required:true},
     {label:"Hotel" , type:"text",name:'Hotel',required:true},
-    {label:"Amount Room" , type:"number",name:'Amountroom',required:true},
+    // {label:"Amount Room" , type:"number",name:'Amountroom',required:true},
     {label:"Price" , type:"number",name:'price',required:true},
 
     

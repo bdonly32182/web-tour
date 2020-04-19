@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { userLogin } from '../../action'
 import { Link } from 'react-router-dom';
-
 export default class Header extends Component {
     render() {
         const {user} = this.props
@@ -38,8 +37,13 @@ export default class Header extends Component {
                                     <ul className="dropdown-menu">
                                         {/* User image */}
                                         <li className="user-header">
-                                            <img src="dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
-                                            {user&&(
+                                            {user&&user.picprofile&&(
+                                             <img src={`http://localhost:3001${user.picprofile}`} className="img-circle" alt="User" />
+                                                
+                                            )
+                                            }
+                                          
+                                            {user&&(          
                                                <p>
                                                 {user.email}
                                                  <small>My Profile</small>
@@ -66,7 +70,7 @@ export default class Header extends Component {
                                         <li className="user-footer">
                                             
                                             <div className="pull-right">
-                                               <Link to="/" > <a  className="btn btn-default btn-flat" onClick={()=>this.props.onLogout()}>Sign out</a> </Link>
+                                                <a href="/" className="btn btn-default btn-flat" onClick={()=>this.props.onLogout()}>Sign out</a> 
                                                 {/* <button className="btn btn-default btn-flat" onClick={()=>this.props.onLogout()}>Sign out</button> */}
                                             </div>
                                         </li>

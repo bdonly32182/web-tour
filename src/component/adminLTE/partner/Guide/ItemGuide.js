@@ -25,7 +25,6 @@ export default class ItemGuide extends Component {
     }
     render() {
         const {_id,Firstname,Lastname,Email,Address,Tel,Status} = this.props.guide
-        console.log(this.props.err);
         
         
         

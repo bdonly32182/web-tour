@@ -6,6 +6,8 @@ import ItemTour from './ItemTour'
 import Header from '../Header'
 import Menubar from '../Menubar'
 import Footer from '../Footer'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
  class ListTour extends Component {
      constructor(props){
          super(props)
@@ -17,21 +19,7 @@ import Footer from '../Footer'
          }
      }
     async componentDidMount(){
-        // if(!this.props.token)
-        // {
-        //     console.log('no user');
-            
-        //    this.props.history.push('/not_role')
-        // }else if(this.props.users.role != "partner"){
-        //     console.log('not partner');
-            
-        //    this.props.history.push('/not_role')
-        // }else{
-        //     console.log('loaduser');
-            
-        //     this.props.toursFetch()
-        //     this.props.loadUser()
-        // }        
+              
         this.props.toursFetch()
       await  this.props.loadUser()
         this.props.users&&this.props.users.role != "partner" &&this.props.history.push('/not_role')
@@ -50,17 +38,47 @@ import Footer from '../Footer'
                     //guide.Firstname.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
                 })
                 return  filterTour.map((tours,index)=>(
-                    <div key={index}>
+                    <tbody key={index}>
+                    <tr>
+
+                        <td className="text-dark">{tours._id}</td>
+                        <td>{tours.tourName}</td>
+                        <td>{tours.place}</td>
+                        <td>{tours.highlight}</td>
+                        <td>{tours.Hotel}</td>
                         
-                        <ItemTour key={index}  tours ={tours} onDelTour={this.onDelTour} onEditTour={this.onEditTour} count={this.props.tours.Count[index]} onCheck={this.onCheckTour}/>
-                    </div>
+                        <td>{this.props.tours.Count[index]}</td>
+                        <td>
+                            <button className="btn btn-primary" onClick={()=>this.onEditTour(tours)}>edit</button>
+                            <button className="btn btn-danger" onClick={()=>this.ConfirmDelete(tours)}>delete</button>
+                            <button className="btn btn-warning" onClick={()=>this.onCheckTour(tours)}>check</button>
+
+                        </td>
+
+                    </tr>
+                </tbody>
                 ))
          }else{
              return this.props.tours.tour &&Array.isArray(this.props.tours.tour)&& this.props.tours.tour.map((tours,index)=>(
-                <div key={index}>
-                    
-                    <ItemTour key={index}  tours ={tours} onDelTour={this.onDelTour} onEditTour={this.onEditTour} count={this.props.tours.Count[index]} onCheck={this.onCheckTour}/>
-                </div>
+                <tbody key={index}>
+                    <tr>
+
+                        <td className="text-dark">{tours._id}</td>
+                        <td>{tours.tourName}</td>
+                        <td>{tours.place}</td>
+                        <td>{tours.highlight}</td>
+                        <td>{tours.Hotel}</td>
+                        
+                        <td>{this.props.tours.Count[index]}</td>
+                        <td>
+                            <button className="btn btn-primary" onClick={()=>this.onEditTour(tours)}>edit</button>
+                            <button className="btn btn-danger" onClick={()=>this.ConfirmDelete(tours)}>delete</button>
+                            <button className="btn btn-warning" onClick={()=>this.onCheckTour(tours)}>check</button>
+
+                        </td>
+
+                    </tr>
+                </tbody>
             )) 
          }
                 
@@ -82,6 +100,23 @@ import Footer from '../Footer'
     onLogout =()=>{
         this.props.Logout()
     }
+    ConfirmDelete = (tour) => {
+        confirmAlert({
+          title: 'Confirm to Delete Tour',
+          message: `Are you sure delete Tour ${tour.tourName}`,
+          buttons: [
+            {
+              label: 'Yes',
+              onClick: () => this.onDelTour(tour)
+            },
+            {
+              label: 'No',
+            //   onClick: () => alert('You Dont want Delete Guide ')
+              
+            }
+          ]
+        });
+      };
     render() {
     
     
@@ -95,8 +130,7 @@ import Footer from '../Footer'
                 {/* Content Header (Page header) */}
                 <section className="content-header">
                     <h1>
-                    Data Tables
-                    <small>advanced tables</small>
+                    List Tour
                     </h1>
                     <ol className="breadcrumb">
                     <li><a href="#"><i className="fa fa-dashboard" /> Home</a></li>
@@ -120,7 +154,25 @@ import Footer from '../Footer'
                         {/* /.box-header */}
                         <div className="box-body">
                             <button className="btn btn-success float-md-right" onClick={()=>this.props.history.push('/manage/tour/add')}>Create</button>
-                            {this.showListTour()}
+                            <table id="example2" className="table table-bordered table-hover">
+                            <thead>
+                                    <tr>
+                                    <th className=" text-center" scope="col-md-2">id</th>
+                                    <th className=" text-center" scope="col-md-2">Tourname</th>
+                                    <th className=" text-center"scope="col-md-2">Place(s)</th>
+                                    <th className=" text-center" scope="col-md-2">Hightligh</th>
+                                    <th className=" text-center" scope="col-md-2">Hotel</th>
+                                    <th className=" text-center" scope="col-md-2">จำนวนสมาชิก</th>
+                                    <th className=" text-center" scope="col-md-2 ">Action</th>
+   
+                                    </tr>
+                                </thead>
+                                {this.showListTour()}
+                            </table>
+                                    
+                                
+                           
+                            
                             
                         </div>
                         {/* /.box-body */}

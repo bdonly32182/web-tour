@@ -5,7 +5,6 @@ import {loadUser,userLogout} from '../../action/UserAction'
 import Header from './Header'
 import Menubar from './Menubar'
 import Footer from './Footer'
-import Content from './Content'
 const Token = localStorage.getItem('token')
  class IntregateLTE extends Component {
      constructor(props){
@@ -16,8 +15,10 @@ const Token = localStorage.getItem('token')
         console.log('didmount');
         
         if(Token){
+            
         this.props.dispatch(loadUser())
-        }else{
+        }
+        else if(!this.props.users ){
             this.props.history.push('/')
         }
         

@@ -1,8 +1,10 @@
 import React, { Component,Fragment } from 'react'
 import {connect} from 'react-redux'
-import {CreateTour,tourFetch,UpdateTour,loadUser,guidesFetch} from '../../../action'
+import {CreateTour,tourFetch,UpdateTour,loadUser,AssignGuideList,EditeAssignGuide} from '../../../action'
 import TourForm from './Form/TourForm'
 import Dropzone from 'react-dropzone'
+import Header from '../Header'
+import Menubar from '../Menubar'
 const acceptType ="image/x-png, image/png , image/jpg , image/jpeg, image/gif"
 // const data = new FormData()
  class EditTour extends Component {
@@ -16,10 +18,15 @@ const acceptType ="image/x-png, image/png , image/jpg , image/jpeg, image/gif"
     async componentDidMount(){
         if(this.props.match.params.id){
             this.props.tourFetch(this.props.match.params.id)
+            //initial value guide ไม่มาเพราะ node ส่งแค่ไกด์ที่มีสถานะ ไม่ว่างมา
+            this.props.EditeAssignGuide()
+        }
+        else{
+           this.props.AssignGuideList()
         }
 
         await  this.props.loadUser()
-               this.props.guidesFetch()
+                
             this.props.users&&this.props.users.role != "partner" &&this.props.history.push('/not_role')
         
             !this.props.token&&this.props.history.push('/')
@@ -73,8 +80,10 @@ const acceptType ="image/x-png, image/png , image/jpg , image/jpeg, image/gif"
 
         return (
             <div>
-               
+               <Header />
+               <Menubar edite="edit"/>
                 <div className="container-fluid">
+                    
                     <div className="row">
                         <div className="col-md-4">
                             
@@ -88,11 +97,21 @@ const acceptType ="image/x-png, image/png , image/jpg , image/jpeg, image/gif"
                     <div className="row">
                       
                         {match.path.indexOf('add') >0&&
-                          <div className="col-md-8">
-                              <div className="col-md-8">
-                                  <p>ADD</p>
-                             
+                          <div className="col-md-10">
+                              <div className="col-md-3"></div>
+                              <div className="col-md-5">
+                                    {tours.Save &&
+                                    <div className="alert alert-success" >
+                                    <strong>Well done!</strong> You Create Tour successfully .
+                                   </div>
+                                    }
+
+                                  {this.state.pdf.length >0 && this.state.files.length >0 ?
+                                    <TourForm onSubmit={()=>CreateTour(formValue,users,upload)} guide={this.props.guide} file={this.state.files}/>  
+                                    :
                                     <TourForm onSubmit={()=>CreateTour(formValue,users,upload)} guide={this.props.guide}/>  
+                                  }
+                                    
                             
                               </div>
                              
@@ -153,11 +172,16 @@ const acceptType ="image/x-png, image/png , image/jpg , image/jpeg, image/gif"
                         }
                         
                          {match.path.indexOf('edit') >0&&
-                          <div className="col-md-8">
-                              <div className="col-md-8">
-                                  <p>Edit</p>
+                          <div className="col-md-10">
+                          <div className="col-md-3"></div>
+                          <div className="col-md-5">
+                                  {tours.editSuc &&
+                                  <div className="alert alert-success" >
+                                  <strong>Well done!</strong> You Edit Tour successfully .
+                                 </div>
+                                  }
                                     
-                                        <TourForm onSubmit={()=>UpdateTour(tours._id,formValue,upload,users)}guide={this.props.guide}/>
+                                        <TourForm onSubmit={()=>UpdateTour(tours._id,formValue,upload,users)}guide={this.props.guide} file="file"/>
                                      
                             </div>
                              
@@ -248,4 +272,4 @@ function mapStateToprops(state){
     }
     
 }
-export default connect(mapStateToprops,{CreateTour,tourFetch,UpdateTour,loadUser,guidesFetch})(EditTour)
+export default connect(mapStateToprops,{CreateTour,tourFetch,UpdateTour,loadUser,AssignGuideList,EditeAssignGuide})(EditTour)

@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {guidesFetch,DelGuide,toursFetch,AssignGuide,loadUser,Logout} from '../../../../action'
+import {guidesFetch,DelGuide,toursFetch,loadUser,Logout} from '../../../../action'
 import ItemGuide from './ItemGuide'
 import { registerField } from 'redux-form'
 import Header from '../../Header'
 import Menubar from '../../Menubar'
 import Footer from  '../../Footer'
 import Alert from 'reactstrap'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
  class ListGuide extends Component {
      constructor(props){
          super(props)
@@ -24,6 +26,7 @@ import Alert from 'reactstrap'
           await  this.props.loadUser()
             this.props.guidesFetch()
             this.props.toursFetch()
+            console.log(this.props.users);
             
             this.props.users&&this.props.users.role != "partner" &&this.props.history.push('/not_role')
         
@@ -40,9 +43,23 @@ import Alert from 'reactstrap'
                 }) 
                 return  searchFilter.map((guides,index)=>
                     (
-                        <div key={index}>
-                            <ItemGuide key ={index} guide={guides} onDelGuide={this.onDelGuide} onEditGuide={this.onEditGuide}onAssign={this.onAssign} tour = {this.props.tours.tour} err={this.props.guide.msg}/>
-                        </div>
+                        
+                            <tbody key={index}>
+                                    <tr>
+                                        <td>{guides._id}</td>
+                                        <td>{guides.Firstname}</td>
+                                        <td>{guides.Lastname}</td>
+                                        <td>{guides.Email}</td>
+                                        <td>{guides.Address}</td>
+                                        <td>{guides.Tel}</td>
+                                        <td>{guides.Status.toString()}</td>
+                                        <td>
+                                            <button className="btn btn-block btn-primary" onClick={()=>this.onEditGuide(guides)}>  edit</button>
+                                            <button className="btn btn-block btn-danger" onClick={()=>this.ConfirmDelete(guides)}>  delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                        
                      
                      )
                  )
@@ -51,10 +68,21 @@ import Alert from 'reactstrap'
              
              return  this.props.guide.guide&&Array.isArray(this.props.guide.guide) && this.props.guide.guide.map((guides,index)=>
             (
-                <div key={index}>
-                    <ItemGuide key ={index} guide={guides} onDelGuide={this.onDelGuide} onEditGuide={this.onEditGuide}tour = {this.props.tours.tour} onAssign={this.onAssign}  err={this.props.guide.msg}/>
-                </div>
-             
+                <tbody key={index}>
+                <tr>
+                    <td>{guides._id}</td>
+                    <td>{guides.Firstname}</td>
+                    <td>{guides.Lastname}</td>
+                    <td>{guides.Email}</td>
+                    <td>{guides.Address}</td>
+                    <td>{guides.Tel}</td>
+                    <td>{guides.Status.toString()}</td>
+                    <td>
+                        <button className="btn btn-primary" onClick={()=>this.onEditGuide(guides)}>  edit</button>
+                        <button className="btn btn-danger" onClick={()=>this.ConfirmDelete(guides)}>  delete</button>
+                    </td>
+                </tr>
+                </tbody>
              )
          ) 
          }
@@ -67,9 +95,7 @@ import Alert from 'reactstrap'
      onEditGuide(guide){
         this.props.history.push('/manage/guide/edit/'+guide._id)
      }
-     onAssign=(guide,tours)=>{
-        this.props.AssignGuide(guide,tours)
-     }
+     
      UpdateSearchData (event){
          this.setState({search:event.target.value})
      }
@@ -84,8 +110,27 @@ import Alert from 'reactstrap'
      onLogout =()=>{
         this.props.Logout()
     }
+    test =()=>{
+        alert('You test')
+    }
+    ConfirmDelete = (guide) => {
+        confirmAlert({
+          title: 'Confirm to Delete Guide',
+          message: `Are you sure delete guide ${guide.Firstname} ${guide.Lastname}`,
+          buttons: [
+            {
+              label: 'Yes',
+              onClick: () => this.onDelGuide(guide)
+            },
+            {
+              label: 'No',
+            //   onClick: () => alert('You Dont want Delete Guide ')
+              
+            }
+          ]
+        });
+      };
     render() {
-        console.log(this.props.guide.guide);
         
         return (
             <div > 
@@ -119,6 +164,7 @@ import Alert from 'reactstrap'
                     <div className="box-body">
                         
                         <button className="btn btn-success" onClick={()=>this.props.history.push('/manage/guide/add')}>Create</button>
+                        {/* <button onClick={this.}>Test Alert</button> */}
                         <br />
                         {this.props.guide.msg &&
                         <div className="container-fluid">
@@ -131,7 +177,24 @@ import Alert from 'reactstrap'
                         </div>
                        
                         }
-                         {this.showListGuide()}
+                        <table id="example2" className="table table-bordered table-hover">
+                             <thead>
+                                    <tr>
+                                    <th className="text-danger text-center" scope="col">id</th>
+                                    <th className="text-danger text-center" scope="col">Firstname</th>
+                                    <th className="text-danger text-center"scope="col">Lastname(s)</th>
+                                    <th className="text-danger text-center"scope="col">Email</th>
+                                    <th className="text-danger text-center" scope="col">Address</th>
+                                    <th className="text-danger text-center" scope="col">Tel</th>
+                                    <th className="text-danger text-center" scope="col">Status</th>
+                                    {/* <th className="text-danger text-center" scope="col">Select Tour</th> */}
+                                    <th className="text-danger text-center" scope="col">action</th>
+
+                                    </tr>
+                                </thead>
+                                {this.showListGuide()}
+                            </table>
+                         
                     </div>
                     {/* /.box-body */}
                     </div>
@@ -151,10 +214,6 @@ import Alert from 'reactstrap'
     }
 }
 function mapStateToProp({guide,users,tours}){
-    // console.log('guide',guide);
-    // console.log('g user',users);
-    // console.log('g tour',tours);
-    
     return {guide:guide,users:users.user,tours:tours,token:users.token}
 }
-export default withRouter(connect(mapStateToProp,{guidesFetch,DelGuide,toursFetch,AssignGuide,loadUser,Logout})(ListGuide))
+export default withRouter(connect(mapStateToProp,{guidesFetch,DelGuide,toursFetch,loadUser,Logout})(ListGuide))

@@ -3,19 +3,27 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import HeaderHome from './contenthome/HeaderHome'
 import LoginForm from './Form/LoginForm'
-import {userLogin} from '../../action'
+import {userLogin,loadUser} from '../../action'
+const Token = localStorage.getItem('token')
 class Login extends Component {
 
     constructor(props){
         super(props);
+        console.log('constuctor');
+        
+        // {this.props.users&&this.props.users.token && this.props.history.push('/manage')}
     }
+
+    
+
     
     
     render() {
         const {formValue,userLogin,users} = this.props
+        console.log('render');
         
         return (
-            <div>
+            <div >
                     <div className="container-fluid">
                         <div className="row">
                                 <HeaderHome /> 
@@ -25,7 +33,7 @@ class Login extends Component {
                             <div className="col-md-4">
 
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4 bg-secondary">
                                
                                 
                                
@@ -34,12 +42,12 @@ class Login extends Component {
                                     || users.isPass &&
                                     <div className="alert alert-danger">{users.isPass}</div>
                                 }
-                                     <LoginForm onSubmitLogin={()=>userLogin(formValue)} users={users} />
+                               
+                                 <LoginForm onSubmitLogin={()=>userLogin(formValue,this.props.history)} users={users} />
+                                {/* {users &&users.user &&this.props.history.push('/manage')} */}
+                                {users.user || users.token ? this.props.history.push('/manage'):null}
                                 
-                                {users.isSuccess &&
-                                    this.props.history.push('/manage')
-                                   
-                                }
+                                
                            
                             </div>
                         </div>
@@ -62,4 +70,4 @@ function mapStateToProps(state){
     return {formValue:state.form.LoginForm ? state.form.LoginForm.values :null,users:state.users}
 }
 
-export default withRouter(connect(mapStateToProps,{userLogin})(Login));
+export default withRouter(connect(mapStateToProps,{userLogin,loadUser})(Login));

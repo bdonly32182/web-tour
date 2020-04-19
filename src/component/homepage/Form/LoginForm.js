@@ -29,9 +29,13 @@ import {Loginfield} from './IntregateForm'
                     
                 
                      {this.renderForm(Loginfield)}
-                            <p className="text-left"><input type="checkbox"></input> remember me</p>
-                            <p className="text-right"><Link to="/register">Forgot Your Password</Link></p>
-                     <button className="btn btn-block btn-info">Sign In</button>
+                            {/* <p className="text-left"><input type="checkbox"></input> remember me</p>
+                            <p className="text-right"><Link to="/register">Forgot Your Password</Link></p> */}
+                     
+                     
+                     <button className="btn btn-block btn-info" >Sign In</button>
+                    
+                     
                      <br />
                      <p className="text-center"><Link to="/register">Register Here Click</Link></p>
                 </form>
@@ -53,4 +57,4 @@ function validate(value){
 
 }
 LoginForm = reduxForm({validate,form:"LoginForm"})(LoginForm)
-export default LoginForm;
+export default (LoginForm);

@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component ,Fragment} from 'react'
 import {reduxForm,Field} from 'redux-form'
 import {Link} from 'react-router-dom'
 import {Registerfield} from './IntregateForm'
 import RegisterFormField from '../../common/RegisterFormField'
+
  class RegisterForm extends Component {
-     
+   
      renderRegistForm(field){
         return field.map(({label,type,name,required})=>{
             return (
@@ -12,17 +13,26 @@ import RegisterFormField from '../../common/RegisterFormField'
             )
         })
      }
+    
+      
     render() {
-        const {onSubmitRegister} = this.props
+        const {onSubmitRegister,files} = this.props
+       
         return (
             <div>
                 <form onSubmit= {this.props.handleSubmit(onSubmitRegister)}>
                     {this.renderRegistForm(Registerfield)}
-                    <br/>
-                 
+                   
+                        <br/>
+                    {files &&
                     <button className="btn btn-block btn-info">Register</button>
+                    }
+                    {!files &&
+                    <button className="btn btn-block btn-info" disabled>Register</button>
+
+                    }
                     <br/>
-                    <p className="text-right"><Link to="/">Have a user Go to Login</Link></p>
+                    <Link to="/"><p className="text-right">Have a user Go to Login</p></Link>
                 </form>
             </div>
         )

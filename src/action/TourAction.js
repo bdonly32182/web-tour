@@ -37,24 +37,26 @@ export const CreateTour =(value,partner,file)=>{
             Data.append('tourName',value.tourName)
             Data.append('place',value.place)
             Data.append('description',value.description)
-            Data.append('duration',value.duration)
-            Data.append('Hotel',value.Hotel)
-            Data.append('Amountroom',value.Amountroom)
-            Data.append('price',value.price)
             file.pdf.map(pdf=>{
-                Data.append('file',pdf)
+                Data.append('pdf',pdf)
             })
             file.files.map(file=>{
                 Data.append('file',file)
             })
             Array.isArray(value.Round)&&value.Round.map((e,i)=>{
                 Data.append('round',`${value[`dateStart${i+1}`]} ${value[`dateEnd${i+1}`]}`)
-                Data.append('guide',value.guide)
+                Data.append('guide',value[`guide${i+1}`])
+                Data.append('totalroom',value[`totalroom${i+1}`])
+                Data.append('priceRound',value[`priceRound${i+1}`])
+                Data.append('priceTour',value[`priceTour${i+1}`])
+
             })
             Array.isArray(value.highlight) && value.highlight.map((e,i)=>{
                 Data.append('highlight',`${value[`highlight${i+1}`]}`)
             })
-            
+            Array.isArray(value.Hotel) && value.Hotel.map((e,i)=>{
+                Data.append('Hotel',value[`hotel${i+1}`])
+            })
             const config = {
                 headers: {
                   'Content-type': 'application/json',
@@ -77,22 +79,26 @@ export const UpdateTour =(id,value,file,user)=>{
         Data.append('tourName',value.tourName)
             Data.append('place',value.place)
             Data.append('description',value.description)
-            Data.append('duration',value.duration)
-            Data.append('highlight',value.highlight)
-            Data.append('Hotel',value.Hotel)
-            Data.append('firstname',user.firstname)
             file.pdf.map(pdf=>{
-                Data.append('file',pdf)
+                Data.append('pdf',pdf)
             })
             file.files.map(file=>{
                 Data.append('file',file)
             })
             Array.isArray(value.Round)&&value.Round.map((e,i)=>{
                 Data.append('round',`${value[`dateStart${i+1}`]} ${value[`dateEnd${i+1}`]}`)
-                Data.append('guide',value.guide)
+                Data.append('guide',value[`guide${i+1}`])
+                Data.append('totalroom',value[`totalroom${i+1}`])
+                Data.append('priceRound',value[`priceRound${i+1}`])
+                Data.append('priceTour',value[`priceTour${i+1}`])
+
+
             })
             Array.isArray(value.highlight) && value.highlight.map((e,i)=>{
                 Data.append('highlights',`${value[`highlight${i+1}`]}`)
+            })
+            Array.isArray(value.Hotel) && value.Hotel.map((e,i)=>{
+                Data.append('Hotels',value[`hotel${i+1}`])
             })
         axios.put('http://localhost:3001/api/tour/'+id,Data)
         .then(res=>{
@@ -112,10 +118,20 @@ export const DelTour =(id,user)=>{
               'auth-token':token
             }
           };
-        axios.delete('http://localhost:3001/api/tour/'+id,config)
+        axios.delete('http://localhost:3001/api/tour/'+id)
         .then(res=>{
-            console.log(res.data);
-            dispatch({type:DELETE_TOUR,payload:res.data})
+            axios.get('http://localhost:3001/api/tour',config)
+            .then(ress=>{
+                console.log('delete tour',ress.data);
+                dispatch({type:DELETE_TOUR,payload:ress.data})
+            }).catch(e=>{
+                console.log('get tour fail');
+                
+            })
+            
+        }).catch(e=>{
+            console.log('delete tour fail');
+            
         })
        }
 }

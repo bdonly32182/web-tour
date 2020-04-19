@@ -16,7 +16,7 @@ import Menubar from '../Menubar'
         
          await  this.props.loadUser()
             this.props.partners()
-            this.props.users&&this.props.users.role != "partner" &&this.props.history.push('/not_role')
+            this.props.users&&this.props.users.role != "admin" &&this.props.history.push('/not_role')
             !this.props.token&&this.props.history.push('/')
      }
     
@@ -53,8 +53,7 @@ import Menubar from '../Menubar'
             {/* Content Header (Page header) */}
             <section className="content-header">
                 <h1>
-                Data Tables
-                <small>advanced tables</small>
+                Admin Approve Partner
                 </h1>
                 <ol className="breadcrumb">
                 <li><a href="#"><i className="fa fa-dashboard" /> Home</a></li>
@@ -97,7 +96,9 @@ function mapStateToProps(state){
         
  return {
      listpartner:state.partners,
-     users:state.users.user
+     users:state.users.user,
+     token:state.users.token
+     
     }
 }
 export default connect(mapStateToProps,{partners,confirmPartner,delPartner,loadUser,Logout})(ListPartner);

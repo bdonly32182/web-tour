@@ -27,7 +27,9 @@ export default class ItemOrder extends Component {
                                         <td>
                                             <p className='text-center'>
                                                  <button className="btn btn-danger active " onClick={()=>this.props.approve(this.props.order)}>APPROVE</button>
+                                                 <button className="btn btn-warning active " onClick={()=>this.props.checkList(_id)}>Check</button>
                                             </p>
+                                            
                                            
                                         </td>
                                     </tr>

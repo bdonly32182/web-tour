@@ -1,23 +1,44 @@
 import axios from 'axios'
+import {createBrowserHistory} from 'history'
+import {Redirect} from 'react-router-dom'
+
 import {USER_LOGIN,USER_REGITER, USER_LOADED,
     USER_LOADING,
     AUTH_ERROR,USER_LOGOUT,USER_LOGIN_FAILE} from './Type'
-export const userLogin=(value)=>{
-    
+export const userLogin=(value,history)=>{
+    // const history = createBrowserHistory()
     
     return dispatch =>{
         axios.post('http://localhost:3001/login',value)
              .then(res=>{
                 
                 dispatch({type:USER_LOGIN,payload:res.data})
+                if (res.data.isSuccess) {
+                  history.push('/manage')
+                  // <Link to="/manage" />
+                }
+                
          }).catch(dispatch({type:USER_LOGIN_FAILE}))
          
     }
 }
 
-export const userRegister =(value) =>{
+export const userRegister =(value,file) =>{
+  const data = new FormData()
     return dispatch =>{
-        axios.post('http://localhost:3001/register',value)
+        data.append('lisence',value.lisence)
+        data.append('companyname',value.companyname)
+        data.append('firstname',value.firstname)
+        data.append('lastname',value.lastname)
+        data.append('email',value.email)
+        data.append('password',value.password)
+        data.append('confirmpass',value.confirmpass)
+        data.append('address',value.address)
+        data.append('contact',value.contact)
+        file.map(file=>{
+          data.append('file',file)
+      })
+        axios.post('http://localhost:3001/register',data)
             .then(res =>{
                 
                 dispatch({type:USER_REGITER,payload:res.data})
@@ -35,7 +56,7 @@ export const Logout =()=>{
     }
 }
 // Check token & load user
-// ถ้าไม่ผู้เข้ากับ connect ต้องรับ dispatch and getState
+// ถ้าไม่ผูกเข้ากับ connect ต้องรับ dispatch and getState
 export const loadUser = () => (dispatch, getState) => {
     // User loading
     dispatch({ type: USER_LOADING });

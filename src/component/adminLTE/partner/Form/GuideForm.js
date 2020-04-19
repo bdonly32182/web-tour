@@ -14,12 +14,17 @@ import GuideFormField from '../../../common/GuideFormField'
         })
     }
     render() {
-        const {onSubmit} =this.props
+        const {onSubmit,files} =this.props
         return (
             <div>
                 <form onSubmit={this.props.handleSubmit(onSubmit)}>
                     {this.renderForm(Guidefield)}
-                    <button className="btn btn-block btn-info">Create Guide</button>
+                    {files?
+                     <button className="btn btn-block btn-info" >Create Guide</button>
+                    :
+                    <button className="btn btn-block btn-info" disabled>Create Guide</button>
+                    }
+                   
 
                 </form>
                 

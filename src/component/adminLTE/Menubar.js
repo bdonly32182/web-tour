@@ -5,7 +5,7 @@ export default class Menubar extends Component {
         super(props)
     }
     render() {
-        const {user,pathPic} = this.props
+        const {user,pathPic,edite} = this.props
         
         return (
             <div>
@@ -43,8 +43,7 @@ export default class Menubar extends Component {
                             </span>
                         </a>
                         <ul className="treeview-menu">
-                            <li><Link to="/manage/tour" className="text-danger"> <i className="fa fa-circle-o" /> tour</Link></li>
-                            <li className="active"> <Link to="/manage/guide" className="text-danger"><i className="fa fa-circle-o" />Guide</Link> </li>
+                            <li><Link to="/manage/approve" className="text-danger"> <i className="fa fa-circle-o" /> Approve</Link></li>
                         </ul>
                     </li> 
                     )}
@@ -62,6 +61,21 @@ export default class Menubar extends Component {
                                <li className="active"> <Link to="/manage/order" className="text-danger"><i className="fa fa-circle-o" />Order</Link> </li>
                            </ul>
                        </li>
+                    )}
+                    {edite&&(
+                        <li className="active treeview menu-open">
+                        <a >
+                            <i className="fa fa-dashboard" /> <span>Manager Tour</span>
+                            <span className="pull-right-container">
+                                <i className="fa fa-angle-left pull-right" />
+                            </span>
+                        </a>
+                        <ul className="treeview-menu">
+                            <li className="active"><Link to="/manage/tour" className="text-danger"> <i className="fa fa-circle-o" /> Tour</Link></li>
+                            <li className="active"> <Link to="/manage/guide" className="text-danger"><i className="fa fa-circle-o" />Guide</Link> </li>
+                            <li className="active"> <Link to="/manage/order" className="text-danger"><i className="fa fa-circle-o" />Order</Link> </li>
+                        </ul>
+                    </li>
                     )}
                    
                     
